@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .payment-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .payment-container h1 {
+      color: #333;
+    }
+
+    #payButton {
+      width: 120px;
+      height: 50px;
+      background-color: #4CFE09;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #payButton:hover {
+      background-color: #45e308;
+    }
+
+    .order-details {
+      margin-top: 15px;
+    }
+
+    .order-details p {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="payment-container">
+    <h1>Complete Your Payment</h1>
+    <div class="order-details">
+      <p id="orderInfo"></p>
+    </div>
+    <button id="payButton">Pay Now</button>
+  </div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    // Function to retrieve URL parameters (like orderId from the URL)
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // Function to initiate the Razorpay payment with the provided orderId
+    function initiatePayment(orderId) {
+      var options = {
+        key: 'rzp_test_L5qNNRXVbhmnhr', // Your test key from Razorpay Dashboard
+        amount: 10000, // Amount to be paid in paise (10000 paise = 100 INR)
+        currency: 'INR',
+        name: 'HospConnect',
+        description: 'Payment for Appointment',
+        order_id: orderId, // Order ID from Razorpay backend
+        handler: function (response) {
+          console.log('Razorpay response:', response);  // Log response for debugging
+
+          alert('Payment successful! Order ID: ' + response.razorpay_order_id);
+          window.location.href = "/payment-success"; // Redirect to success page
+        },
+        prefill: {
+          name: 'Customer Name',
+          email: 'customer@example.com',
+          contact: '9876543210'
+        },
+        theme: {
+          color: '#4CFE09' // Customize Razorpay theme color
+        }
+      };
+
+      // Open Razorpay payment modal
+      var rzp = new Razorpay(options);
+      rzp.open();
+    }
+
+    // Load the page and attach click event to initiate payment
+    window.onload = function () {
+      const orderId = getQueryParam('orderId');
+      if (orderId) {
+        document.getElementById('orderInfo').innerText = 'Order ID: ' + orderId;
+
+        document.getElementById('payButton').addEventListener('click', function () {
+          initiatePayment(orderId);
+        });
+      } else {
+        alert('Order ID not found. Please try again.');
+      }
+    };
+  </script>
+</body>
+
+</html>

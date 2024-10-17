@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Desk Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        #chat-container {
+            width: 400px;
+            height: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #chatbox {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+            background-color: #fafafa;
+        }
+
+        #chatbox::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chatbox::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 3px;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 80%;
+            display: block; /* Change to block to ensure each message is on a new line */
+            font-size: 14px;
+            position: relative;
+        }
+
+        .left {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-start;
+        }
+
+        .right {
+            background-color: #e2e2e2;
+            color: black;
+            align-self: flex-end;
+        }
+
+        #input-section {
+            display: flex;
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        #userInput {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        #sendBtn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #sendBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="chat-container">
+    <div id="chatbox"></div>
+    <div id="input-section">
+        <input type="text" id="userInput" placeholder="Type your message here...">
+        <button id="sendBtn">Send</button>
+    </div>
+</div>
+
+<script>
+    const chatbox = document.getElementById('chatbox');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    let isLeft = true; 
+
+    sendBtn.addEventListener('click', () => {
+        const message = userInput.value.trim();
+        if (message === '') return;
+
+        appendMessage(message, isLeft ? 'left' : 'right');
+        userInput.value = '';
+
+        isLeft = !isLeft;
+
+        fetch('http://localhost:8080/api/v1/patient/help-desk/callback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const reply = data.reply;
+            appendMessage(reply, isLeft ? 'left' : 'right');
+            isLeft = !isLeft;  // Toggle side again for the next message
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            appendMessage("Sorry, I'm having trouble understanding that.", isLeft ? 'left' : 'right');
+            isLeft = !isLeft;
+        });
+    });
+
+    function appendMessage(message, side) {
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('message', side);
+        msgDiv.innerText = message;
+        chatbox.appendChild(msgDiv);
+        chatbox.scrollTop = chatbox.scrollHeight; 
+    }
+</script>
+
+</body>
+</html>
