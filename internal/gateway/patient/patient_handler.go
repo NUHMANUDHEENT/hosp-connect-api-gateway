@@ -4,10 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"path/filepath"
 	"time"
 
 	"github.com/NUHMANUDHEENT/hosp-connect-pb/proto/patient"
+	"github.com/gorilla/websocket"
+	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/di"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/utils"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/middleware"
 )
@@ -222,4 +226,51 @@ func (p *PatientServerClient) GetPrescriptions(w http.ResponseWriter, r *http.Re
 	}
 	utils.JSONResponse(w, resp, http.StatusOK, r)
 
+}
+func (d *PatientServerClient) VideoCallRender(w http.ResponseWriter, r *http.Request) {
+	videocallhtml := filepath.Join("..", "templates", "video_call_jitsi.html")
+	http.ServeFile(w, r, videocallhtml)
+}
+
+func (p *PatientServerClient) PatientChatHandler(w http.ResponseWriter, r *http.Request) {
+	conn, err := di.Upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println("Error upgrading patient connection:", err)
+		return
+	}
+	di.P1atientConnections[conn] = true
+	defer conn.Close()
+
+	for {
+		var message di.Message
+		err := conn.ReadJSON(&message)
+		if err != nil {
+			log.Println("Error reading message from patient:", err)
+			delete(di.P1atientConnections, conn)
+			break
+		}
+		log.Printf("Received message from patient: %s", message)
+
+		sendMessageToCustomerCare(message)
+	}
+}
+
+func sendMessageToCustomerCare(msg di.Message) {
+	messageJSON, err := json.Marshal(msg)
+	if err != nil {
+		log.Println("Error marshalling message to JSON:", err)
+		return
+	}
+	for conn := range di.CustomerConnections {
+		err := conn.WriteMessage(websocket.TextMessage, messageJSON)
+		if err != nil {
+			log.Println("Error sending message to customer care:", err)
+			conn.Close()
+			delete(di.CustomerConnections, conn)
+		}
+	}
+}
+func (p *PatientServerClient) PatientChatRender(w http.ResponseWriter, r *http.Request) {
+	paymentPagePath := filepath.Join("..", "templates", "user_chat.html")
+	http.ServeFile(w, r, paymentPagePath)
 }

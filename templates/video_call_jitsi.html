@@ -70,28 +70,37 @@
         <div class="jitsi-container" id="jitsi-container"></div>
     </div>
 
-    <div class="footer">
-        <p>Powered by Jitsi Meet</p>
-    </div>
-
     <!-- Jitsi Meet External API -->
     <script src="https://meet.jit.si/external_api.js"></script>
     <script>
-        const domain = "meet.jit.si";
-        const options = {
-            roomName: "consultation-doc123-pat456",
-            width: "100%",
-            height: "100%",
-            parentNode: document.querySelector('#jitsi-container'),
-            interfaceConfigOverwrite: {
-                filmStripOnly: false,
-                SHOW_JITSI_WATERMARK: false,
-            },
-            configOverwrite: {
-                disableDeepLinking: true,
-            }
-        };
-        const api = new JitsiMeetExternalAPI(domain, options);
+        // Function to get query parameter from the URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Get room name from the URL query parameter
+        const roomName = getQueryParam('room');
+
+        if (roomName) {
+            const domain = "meet.jit.si";
+            const options = {
+                roomName: roomName, // Room ID from the query parameter
+                width: "100%",
+                height: "100%",
+                parentNode: document.querySelector('#jitsi-container'),
+                interfaceConfigOverwrite: {
+                    filmStripOnly: false,
+                    SHOW_JITSI_WATERMARK: false,
+                },
+                configOverwrite: {
+                    disableDeepLinking: true,
+                }
+            };
+            const api = new JitsiMeetExternalAPI(domain, options);
+        } else {
+            alert("No room found in the URL");
+        }
     </script>
 
 </body>

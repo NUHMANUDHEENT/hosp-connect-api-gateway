@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help Desk Chatbot</title>
+    <title>Admin Customer Support</title>
     <style>
         * {
             margin: 0;
@@ -32,6 +32,15 @@
             overflow: hidden;
         }
 
+        #status {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
         #chatbox {
             flex-grow: 1;
             padding: 20px;
@@ -55,7 +64,6 @@
             border-radius: 20px;
             max-width: 80%;
             display: block;
-            /* Change to block to ensure each message is on a new line */
             font-size: 14px;
             position: relative;
         }
@@ -107,6 +115,7 @@
 <body>
 
     <div id="chat-container">
+        <!-- <div id="status">...</div> -->
         <div id="chatbox"></div>
         <div id="input-section">
             <input type="text" id="userInput" placeholder="Type your message here...">
@@ -118,45 +127,30 @@
         const chatbox = document.getElementById('chatbox');
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
+        const status = document.getElementById('status');
 
-        let isLeft = true;
+        // Set up WebSocket connection for customer care
+        const ws = new WebSocket('ws://localhost:8080/api/v1/admin/ws');
+
+        ws.onmessage = (event) => {
+            const msg = JSON.parse(event.data);
+            appendMessage(msg.text, 'left'); // Patient messages will be displayed on the left
+        };
 
         sendBtn.addEventListener('click', () => {
             const message = userInput.value.trim();
             if (message === '') return;
 
-            appendMessage(message, isLeft ? 'left' : 'right');
+            // Send customer care's message
+            const msgObj = {
+                username: 'Customer Care',
+                text: message,
+                sender: 'customer' // Indicate that the sender is customer care
+            };
+
+            ws.send(JSON.stringify(msgObj));
+            appendMessage(message, 'right'); // Display customer care's message on the right
             userInput.value = '';
-
-            // Check if the message is to transfer to customer care
-
-
-            isLeft = !isLeft;
-
-            fetch('http://localhost:8080/api/v1/patient/help-desk/callback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const reply = data.reply;
-                    appendMessage(reply, isLeft ? 'left' : 'right');
-                    isLeft = !isLeft;  // Toggle side again for the next message
-
-                    if (reply.toLowerCase().includes('connecting to customer care')) {
-                        alert('You are being redirected to customer care...');
-                        window.location.href = 'http://localhost:8080/api/v1/patient/customer-care';  // Redirect to real-time chat page
-                        return;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    appendMessage("Sorry, I'm having trouble understanding that.", isLeft ? 'left' : 'right');
-                    isLeft = !isLeft;
-                });
         });
 
         function appendMessage(message, side) {
@@ -165,9 +159,9 @@
             msgDiv.innerText = message;
             chatbox.appendChild(msgDiv);
             chatbox.scrollTop = chatbox.scrollHeight;
-
         }
     </script>
+
 </body>
 
 </html>

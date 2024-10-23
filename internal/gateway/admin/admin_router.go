@@ -14,6 +14,7 @@ func RegisterAdminRoutes(router *mux.Router, adminclient *AdminServerClient) {
 	publicRouter := router.PathPrefix("/api/v1/admin").Subrouter()
 	publicRouter.HandleFunc("/signin", adminclient.AdminSignIn).Methods("POST")
 	publicRouter.HandleFunc("/logout", adminclient.AdminLogout).Methods("POST")
+	publicRouter.HandleFunc("/ws", adminclient.CustomerCareChatHandler)
 
 	privateRouter := router.PathPrefix("/api/v1/admin").Subrouter()
 	privateRouter.Use(middleware.JWTMiddleware("admin"))
@@ -25,5 +26,6 @@ func RegisterAdminRoutes(router *mux.Router, adminclient *AdminServerClient) {
 	privateRouter.HandleFunc("/patient/list", adminclient.ListPatientsHandler)
 	privateRouter.HandleFunc("/doctor/list", adminclient.ListDoctorsHandler)
 	privateRouter.HandleFunc("/doctor/addcategory", adminclient.AddDoctorSpecialization).Methods("POST")
+	privateRouter.HandleFunc("/customer-support", adminclient.AdminChatRender)
 
 }

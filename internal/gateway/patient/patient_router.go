@@ -19,9 +19,10 @@ func RegisterPatientRoutes(router *mux.Router, patientClient *PatientServerClien
 	publicRouter.HandleFunc("/signup/verify-email", patientClient.SignUpverify).Methods("GET")
 	publicRouter.HandleFunc("/signin", patientClient.PatientSignIn).Methods("POST")
 	publicRouter.HandleFunc("/logout", patientClient.PatientLogout).Methods("POST")
-	publicRouter.HandleFunc("/help-desk", di.HelpDeskRender)
 	publicRouter.HandleFunc("/help-desk/callback", di.HelpDeskHandler).Methods("POST")
-
+	publicRouter.HandleFunc("/video-call", patientClient.VideoCallRender)
+	publicRouter.HandleFunc("/ws", patientClient.PatientChatHandler)
+	
 	// Private routes that require JWT middleware
 	privateRouter := router.PathPrefix("/api/v1/patient").Subrouter()
 	privateRouter.Use(middleware.JWTMiddleware("patient"))
@@ -32,4 +33,6 @@ func RegisterPatientRoutes(router *mux.Router, patientClient *PatientServerClien
 	privateRouter.HandleFunc("/get-doctor-availability", appointmentClient.GetAvailabilityByDoctorId).Methods("GET")
 	privateRouter.HandleFunc("/confirm-appointment", appointmentClient.ConfirmPatientAppointment).Methods("POST")
 	privateRouter.HandleFunc("/get-prescription", patientClient.GetPrescriptions)
+	privateRouter.HandleFunc("/help-desk", di.HelpDeskRender)
+	privateRouter.HandleFunc("/customer-care", patientClient.PatientChatRender)
 }

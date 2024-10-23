@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"path/filepath"
 	"time"
 
 	pb "github.com/NUHMANUDHEENT/hosp-connect-pb/proto/appointment"
@@ -58,6 +59,7 @@ func (p *AppointmentServerClient) ConfirmPatientAppointment(w http.ResponseWrite
 		SpecializationId int       `json:"specializationid"`
 		AppointmentTime  time.Time `json:"appointmenttime"`
 		DoctorId         string    `json:"doctorid"`
+		Type             string    `json:"type"`
 	}
 	err := json.NewDecoder(r.Body).Decode(&reqbody)
 	if err != nil {
@@ -71,11 +73,13 @@ func (p *AppointmentServerClient) ConfirmPatientAppointment(w http.ResponseWrite
 		utils.JSONResponse(w, "Unauthorized: "+err.Error(), http.StatusUnauthorized, r)
 		return
 	}
+	fmt.Println(reqbody.Type)
 	appointmentReq := &pb.ConfirmAppointmentRequest{
 		DoctorId:          reqbody.DoctorId,
 		SpecializationId:  int32(reqbody.SpecializationId),
 		ConfirmedDateTime: timestamppb.New(parsedTime),
 		PatientId:         claims.UserId,
+		Type:              reqbody.Type,
 	}
 	fmt.Println("datas", appointmentReq)
 	resp, err := p.ConfirmAppointment(context.Background(), appointmentReq)
@@ -112,7 +116,7 @@ func (d *AppointmentServerClient) CreateRoomForVideoTreatments(w http.ResponseWr
 		SpecializationId int64  `json:"specialization"`
 	}
 	err = json.NewDecoder(req.Body).Decode(&reqBody)
-                          if err != nil {
+	if err != nil {
 		utils.JSONResponse(w, "Invalid request body", http.StatusBadRequest, req)
 		return
 	}
@@ -126,6 +130,9 @@ func (d *AppointmentServerClient) CreateRoomForVideoTreatments(w http.ResponseWr
 		return
 	}
 	utils.JSONResponse(w, resp, 200, req)
-
 }
 
+func (d *AppointmentServerClient) VideoCallRender(w http.ResponseWriter, r *http.Request) {
+	videocallhtml := filepath.Join("..", "templates", "video_call_jitsi.html")
+	http.ServeFile(w, r, videocallhtml)
+}

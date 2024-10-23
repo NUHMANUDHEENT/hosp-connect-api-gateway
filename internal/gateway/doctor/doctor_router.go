@@ -23,6 +23,7 @@ func RegisterDoctorRoutes(router *mux.Router, DoctorClient *DoctorServerClient, 
 	publicRouter.HandleFunc("/auth/callback", func(w http.ResponseWriter, r *http.Request) {
 		DoctorClient.HandleGoogleCallback(w, r)
 	}).Methods("GET")
+	publicRouter.HandleFunc("/video-call", AppointmentClient.VideoCallRender)
 
 	privateRouter := router.PathPrefix("/api/v1/doctor").Subrouter()
 	privateRouter.Use(middleware.JWTMiddleware("doctor"))

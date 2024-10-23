@@ -3,10 +3,12 @@ module github.com/nuhmanudheent/hosp-connect-api-gateway
 go 1.22.2
 
 require (
-	github.com/NUHMANUDHEENT/hosp-connect-pb v0.0.0-20241016121759-0b1489301545
+	github.com/NUHMANUDHEENT/hosp-connect-pb v0.0.0-20241021054418-b56f2c7457f0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gorilla/mux v1.8.1
+	github.com/gorilla/websocket v1.5.3
 	github.com/joho/godotenv v1.5.1
+	github.com/julienschmidt/httprouter v1.3.0
 	golang.org/x/oauth2 v0.23.0
 	google.golang.org/api v0.201.0
 	google.golang.org/grpc v1.67.1

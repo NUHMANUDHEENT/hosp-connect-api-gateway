@@ -5,13 +5,17 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"path/filepath"
 	"time"
 
 	pb "github.com/NUHMANUDHEENT/hosp-connect-pb/proto/admin"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/websocket"
 
 	// "github.com/nuhmanudheent/hosp-connect-api-gateway/internal/gateway/admin"
+	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/di"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/utils"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/middleware"
 )
@@ -197,7 +201,7 @@ func (a *AdminServerClient) ListDoctorsHandler(w http.ResponseWriter, req *http.
 		utils.JSONResponse(w, "Failed to list doctors", http.StatusInternalServerError, req)
 		return
 	}
-	fmt.Println("docotrs",resp)
+	fmt.Println("docotrs", resp)
 	utils.JSONResponse(w, resp, http.StatusOK, req)
 }
 
@@ -230,4 +234,46 @@ func (a *AdminServerClient) AddDoctorSpecialization(w http.ResponseWriter, req *
 		return
 	}
 	utils.JSONResponse(w, resp, 200, req)
+}
+func (a *AdminServerClient) CustomerCareChatHandler(w http.ResponseWriter, r *http.Request) {
+	conn, err := di.Upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println("Error upgrading customer connection:", err)
+		return
+	}
+	di.CustomerConnections[conn] = true // Mark the connection as active
+	defer conn.Close()
+	for {
+		var message di.Message
+		err := conn.ReadJSON(&message)
+		if err != nil {
+			log.Println("Error reading message from customer:", err)
+			delete(di.CustomerConnections, conn)
+			break
+		}
+		log.Printf("Received message from customer care: %s", message)
+
+		// Here, you would route the message to patients
+		sendMessageToPatients(message) // A function to send messages to patients
+	}
+}
+
+func sendMessageToPatients(msg di.Message) {
+	messageJSON, err := json.Marshal(msg)
+	if err != nil {
+		log.Println("Error marshalling message to JSON:", err)
+		return
+	}
+	for conn := range di.P1atientConnections {
+		err := conn.WriteMessage(websocket.TextMessage, messageJSON)
+		if err != nil {
+			log.Println("Error sending message to patient:", err)
+			conn.Close()
+			delete(di.P1atientConnections, conn)
+		}
+	}
+}
+func (p *AdminServerClient) AdminChatRender(w http.ResponseWriter, r *http.Request) {
+	paymentPagePath := filepath.Join("..", "templates", "customer_care_chat.html")
+	http.ServeFile(w, r, paymentPagePath)
 }
