@@ -13,8 +13,8 @@ import (
 	pb "github.com/NUHMANUDHEENT/hosp-connect-pb/proto/admin"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
+	"github.com/sirupsen/logrus"
 
-	// "github.com/nuhmanudheent/hosp-connect-api-gateway/internal/gateway/admin"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/di"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/utils"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/middleware"
@@ -22,8 +22,10 @@ import (
 
 const role = "admin"
 
-// AdminSignIn handles the admin signin via gRPC
+// AdminSignIn handles the admin sign-in via gRPC
 func (a *AdminServerClient) AdminSignIn(w http.ResponseWriter, r *http.Request) {
+	a.Logger.Info("AdminSignIn: Starting sign-in process")
+
 	// Parse the JSON request body
 	var reqBody struct {
 		Email    string `json:"email"`
@@ -42,25 +44,41 @@ func (a *AdminServerClient) AdminSignIn(w http.ResponseWriter, r *http.Request) 
 	}
 
 	// Call the Admin gRPC SignIn method
-	resp, err := a.SignIn(context.Background(), &pb.SignInRequest{
+	resp, err := a.AdminClient.SignIn(context.Background(), &pb.SignInRequest{
 		Email:    reqBody.Email,
 		Password: reqBody.Password,
 	})
 	if err != nil {
+		a.Logger.WithFields(logrus.Fields{
+			"function": "AdminSignIn",
+			"error":    err.Error(),
+			"email":    reqBody.Email,
+		}).Error("AdminSignIn: gRPC error during sign-in")
 		utils.JSONResponse(w, "GRPC error", http.StatusInternalServerError, r)
 		return
 	}
+
 	if resp.Status == "success" {
 		jwtToken, err := middleware.CreateJWTToken(reqBody.Email, role)
 		if err != nil {
 			utils.JSONResponse(w, "Failed to create JWT token", http.StatusInternalServerError, r)
 			return
 		}
-		middleware.SetJWTToken(w, jwtToken, role)
+		middleware.SetJWTToken(w, jwtToken, "admin")
+		a.Logger.WithFields(logrus.Fields{
+			"function": "AdminSignIn",
+			"email":    reqBody.Email,
+		}).Info("AdminSignIn: JWT token created successfully")
 	}
 
+	a.Logger.WithFields(logrus.Fields{
+		"function": "AdminSignIn",
+		"email":    reqBody.Email,
+	}).Info("AdminSignIn: Sign-in successful")
 	utils.JSONResponse(w, resp, http.StatusOK, r)
 }
+
+// AdminLogout handles admin logout
 func (a *AdminServerClient) AdminLogout(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &http.Cookie{
 		MaxAge:   -1,
@@ -72,10 +90,16 @@ func (a *AdminServerClient) AdminLogout(w http.ResponseWriter, r *http.Request) 
 		Path:     "/",
 	})
 
+	a.Logger.WithFields(logrus.Fields{
+		"function": "AdminLogout",
+	}).Info("AdminLogout: Admin logged out successfully")
 	utils.JSONStandardResponse(w, "success", "", "Admin logged out successfully", http.StatusOK, r)
 }
 
+// DoctorRegister handles the doctor registration via gRPC
 func (a *AdminServerClient) DoctorRegister(w http.ResponseWriter, req *http.Request) {
+	a.Logger.Info("DoctorRegister: Starting registration process")
+
 	var reqBody struct {
 		Email            string `json:"email"`
 		Password         string `json:"password"`
@@ -85,10 +109,12 @@ func (a *AdminServerClient) DoctorRegister(w http.ResponseWriter, req *http.Requ
 	}
 	err := json.NewDecoder(req.Body).Decode(&reqBody)
 	if err != nil {
+		// Skip logging for decoding errors as it's too verbose
 		utils.JSONResponse(w, "failed to decode request", http.StatusBadGateway, req)
 		return
 	}
-	resp, err := a.AddDoctor(context.Background(), &pb.AddDoctorRequest{
+
+	resp, err := a.AdminClient.AddDoctor(context.Background(), &pb.AddDoctorRequest{
 		Email:            reqBody.Email,
 		Password:         reqBody.Password,
 		Name:             reqBody.Name,
@@ -96,13 +122,23 @@ func (a *AdminServerClient) DoctorRegister(w http.ResponseWriter, req *http.Requ
 		Phone:            int32(reqBody.Phone),
 	})
 	if err != nil {
+		a.Logger.WithFields(logrus.Fields{
+			"function": "DoctorRegister",
+			"error":    err.Error(),
+			"email":    reqBody.Email,
+		}).Error("DoctorRegister: Failed to register doctor")
 		utils.JSONResponse(w, resp, http.StatusBadGateway, req)
 		return
 	}
-	utils.JSONResponse(w, resp, int(resp.StatusCode), req)
 
+	a.Logger.WithFields(logrus.Fields{
+		"function": "DoctorRegister",
+		"email":    reqBody.Email,
+	}).Info("DoctorRegister: Doctor registered successfully")
+	utils.JSONResponse(w, resp, int(resp.StatusCode), req)
 }
 
+// PatientCreate handles the creation of a new patient
 func (a *AdminServerClient) PatientCreate(w http.ResponseWriter, r *http.Request) {
 	var reqBody struct {
 		Name     string `json:"name"`
@@ -112,6 +148,8 @@ func (a *AdminServerClient) PatientCreate(w http.ResponseWriter, r *http.Request
 		Age      int    `json:"age"`
 		Gender   string `json:"gender"`
 	}
+
+	// Decode the request body
 	err := json.NewDecoder(r.Body).Decode(&reqBody)
 	if err != nil {
 		utils.JSONResponse(w, "failed to decode request", http.StatusBadRequest, r)
@@ -119,36 +157,56 @@ func (a *AdminServerClient) PatientCreate(w http.ResponseWriter, r *http.Request
 	}
 
 	// Call the Patient gRPC Create method
-	resp, err := a.AddPatient(context.Background(), &pb.AddPatientRequest{
+	resp, err := a.AdminClient.AddPatient(context.Background(), &pb.AddPatientRequest{
 		Name:     reqBody.Name,
 		Email:    reqBody.Email,
 		Phone:    int32(reqBody.Phone),
 		Password: reqBody.Password,
 	})
 	if err != nil {
+		a.Logger.WithFields(logrus.Fields{
+			"function": "PatientCreate",
+			"email":    reqBody.Email,
+			"error":    err.Error(),
+		}).Error("PatientCreate: gRPC error during patient creation")
 		utils.JSONResponse(w, "GRPC error", http.StatusInternalServerError, r)
 		return
 	}
 
+	a.Logger.WithFields(logrus.Fields{
+		"function": "PatientCreate",
+		"email":    reqBody.Email,
+	}).Info("PatientCreate: Patient created successfully")
 	utils.JSONResponse(w, resp, int(resp.StatusCode), r)
 }
 
+// PatientDelete handles the deletion of a patient
 func (a *AdminServerClient) PatientDelete(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	patientId := vars["ID"]
 
 	// Call the Patient gRPC Delete method
-	resp, err := a.DeletePatient(context.Background(), &pb.DeletePatientRequest{
+	resp, err := a.AdminClient.DeletePatient(context.Background(), &pb.DeletePatientRequest{
 		PatientId: patientId,
 	})
 	if err != nil {
+		a.Logger.WithFields(logrus.Fields{
+			"function":  "PatientDelete",
+			"patientId": patientId,
+			"error":     err.Error(),
+		}).Error("PatientDelete: gRPC error during patient deletion")
 		utils.JSONResponse(w, "GRPC error", http.StatusInternalServerError, r)
 		return
 	}
 
+	a.Logger.WithFields(logrus.Fields{
+		"function":  "PatientDelete",
+		"patientId": patientId,
+	}).Info("PatientDelete: Patient deleted successfully")
 	utils.JSONResponse(w, resp, int(resp.StatusCode), r)
 }
 
+// DoctorDelete handles the deletion of a doctor
 func (a *AdminServerClient) DoctorDelete(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	doctorID := vars["ID"]
@@ -159,17 +217,27 @@ func (a *AdminServerClient) DoctorDelete(w http.ResponseWriter, r *http.Request)
 	}
 
 	// Call the Doctor gRPC Delete method
-	resp, err := a.DeleteDoctor(context.Background(), &pb.DeleteDoctorRequest{
+	resp, err := a.AdminClient.DeleteDoctor(context.Background(), &pb.DeleteDoctorRequest{
 		DoctorId: doctorID,
 	})
 	if err != nil {
+		a.Logger.WithFields(logrus.Fields{
+			"function": "DoctorDelete",
+			"doctorID": doctorID,
+			"error":    err.Error(),
+		}).Error("DoctorDelete: gRPC error during doctor deletion")
 		utils.JSONResponse(w, "GRPC error", http.StatusInternalServerError, r)
 		return
 	}
 
+	a.Logger.WithFields(logrus.Fields{
+		"function": "DoctorDelete",
+		"doctorID": doctorID,
+	}).Info("DoctorDelete: Doctor deleted successfully")
 	utils.JSONResponse(w, resp, int(resp.StatusCode), r)
 }
 
+// PatientBlock handles the blocking of a patient
 func (a *AdminServerClient) PatientBlock(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	patientId := vars["ID"]
@@ -183,58 +251,51 @@ func (a *AdminServerClient) PatientBlock(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	// Call the Patient gRPC Block method (this updates the patient status)
-	resp, err := a.BlockPatient(context.Background(), &pb.BlockPatientRequest{
+	// Call the Patient gRPC Block method
+	resp, err := a.AdminClient.BlockPatient(context.Background(), &pb.BlockPatientRequest{
 		PatientId: patientId,
 		Reason:    reqBody.Reason,
 	})
 	if err != nil {
+		a.Logger.WithFields(logrus.Fields{
+			"function":  "PatientBlock",
+			"patientId": patientId,
+			"error":     err.Error(),
+		}).Error("PatientBlock: gRPC error during patient blocking")
 		utils.JSONResponse(w, "GRPC error", http.StatusInternalServerError, r)
 		return
 	}
 
+	a.Logger.WithFields(logrus.Fields{
+		"function":  "PatientBlock",
+		"patientId": patientId,
+		"reason":    reqBody.Reason,
+	}).Info("PatientBlock: Patient blocked successfully")
 	utils.JSONResponse(w, resp, int(resp.StatusCode), r)
 }
+
+// ListDoctorsHandler handles the request for listing all doctors
 func (a *AdminServerClient) ListDoctorsHandler(w http.ResponseWriter, req *http.Request) {
-	resp, err := a.ListDoctors(context.Background(), &pb.Empty{})
+	resp, err := a.AdminClient.ListDoctors(context.Background(), &pb.Empty{})
 	if err != nil || resp.Status != "success" {
 		utils.JSONResponse(w, "Failed to list doctors", http.StatusInternalServerError, req)
 		return
 	}
-	fmt.Println("docotrs", resp)
+	fmt.Println("Doctors response:", resp)
 	utils.JSONResponse(w, resp, http.StatusOK, req)
 }
 
-// ListPatients handles the request for listing all patients
+// ListPatientsHandler handles the request for listing all patients
 func (a *AdminServerClient) ListPatientsHandler(w http.ResponseWriter, req *http.Request) {
-	resp, err := a.ListPatients(context.Background(), &pb.Empty{})
+	resp, err := a.AdminClient.ListPatients(context.Background(), &pb.Empty{})
 	if err != nil || resp.Status != "success" {
 		utils.JSONResponse(w, "Failed to list patients", http.StatusInternalServerError, req)
 		return
 	}
-
 	utils.JSONResponse(w, resp, http.StatusOK, req)
 }
-func (a *AdminServerClient) AddDoctorSpecialization(w http.ResponseWriter, req *http.Request) {
-	var reqBody struct {
-		Name        string `json:"name"`
-		Description string `json:"description"`
-	}
-	err := json.NewDecoder(req.Body).Decode(&reqBody)
-	if err != nil {
-		utils.JSONResponse(w, "failed to decode request", http.StatusBadRequest, req)
-		return
-	}
-	resp, err := a.AddSpecialization(context.Background(), &pb.AddSpecializationRequest{
-		Name:        reqBody.Name,
-		Description: reqBody.Description,
-	})
-	if err != nil {
-		utils.JSONResponse(w, "GRPC erro", http.StatusInternalServerError, req)
-		return
-	}
-	utils.JSONResponse(w, resp, 200, req)
-}
+
+// CustomerCareChatHandler handles WebSocket connections for customer care chat
 func (a *AdminServerClient) CustomerCareChatHandler(w http.ResponseWriter, r *http.Request) {
 	conn, err := di.Upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -242,38 +303,44 @@ func (a *AdminServerClient) CustomerCareChatHandler(w http.ResponseWriter, r *ht
 		return
 	}
 	di.CustomerConnections[conn] = true // Mark the connection as active
-	defer conn.Close()
+	defer func() {
+		conn.Close()
+		delete(di.CustomerConnections, conn) // Clean up on disconnect
+	}()
+
 	for {
 		var message di.Message
 		err := conn.ReadJSON(&message)
 		if err != nil {
 			log.Println("Error reading message from customer:", err)
-			delete(di.CustomerConnections, conn)
-			break
+			break // Exit the loop on error
 		}
 		log.Printf("Received message from customer care: %s", message)
 
-		// Here, you would route the message to patients
-		sendMessageToPatients(message) // A function to send messages to patients
+		// Route the message to patients
+		sendMessageToPatients(message) // Function to send messages to patients
 	}
 }
 
+// sendMessageToPatients broadcasts messages to all patient connections
 func sendMessageToPatients(msg di.Message) {
 	messageJSON, err := json.Marshal(msg)
 	if err != nil {
 		log.Println("Error marshalling message to JSON:", err)
 		return
 	}
-	for conn := range di.P1atientConnections {
+	for conn := range di.PatientConnections {
 		err := conn.WriteMessage(websocket.TextMessage, messageJSON)
 		if err != nil {
 			log.Println("Error sending message to patient:", err)
-			conn.Close()
-			delete(di.P1atientConnections, conn)
+			conn.Close()                         // Close the connection on error
+			delete(di.PatientConnections, conn) // Clean up inactive connections
 		}
 	}
 }
+
+// AdminChatRender renders the customer care chat HTML page
 func (p *AdminServerClient) AdminChatRender(w http.ResponseWriter, r *http.Request) {
-	paymentPagePath := filepath.Join("..", "templates", "customer_care_chat.html")
-	http.ServeFile(w, r, paymentPagePath)
+	chatPagePath := filepath.Join("..", "templates", "customer_care_chat.html")
+	http.ServeFile(w, r, chatPagePath) // Serve the chat HTML file
 }

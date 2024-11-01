@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js for visualization -->
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; }
+        h1 { margin-top: 20px; }
+
+        .dashboard-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        .filter-container {
+            margin-top: 20px;
+        }
+
+        .stats {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 40%;
+        }
+
+        .count-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .count-card h3 { margin: 0; color: #333; }
+        .count-card p { margin: 5px 0; font-size: 1.5em; font-weight: bold; }
+
+        .chart-container {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        
+        #specializationChart {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<!-- Filter Dropdown -->
+<div class="filter-container">
+    <label for="timeFilter">Filter By:</label>
+    <select id="timeFilter" onchange="fetchDashboardData()">
+        <option value="day">Day</option>
+        <option value="week">Week</option>
+        <option value="month">Month</option>
+        <option value="year">Year</option>
+    </select>
+</div>
+
+<div class="dashboard-container">
+    <!-- Left Side: Statistics Cards -->
+    <div class="stats">
+        <div class="count-card">
+            <h3>Total Doctors</h3>
+            <p id="totalDoctors">0</p>
+        </div>
+        <div class="count-card">
+            <h3>Total Patients</h3>
+            <p id="totalPatients">0</p>
+        </div>
+        <div class="count-card">
+            <h3>Total Appointments</h3>
+            <p id="totalAppointments">0</p>
+        </div>
+        <div class="count-card">
+            <h3>Total Revenue</h3>
+            <p id="totalRevenue">0</p>
+        </div>
+    </div>
+
+    <!-- Right Side: Chart -->
+    <div class="chart-container">
+        <canvas id="specializationChart"></canvas>
+    </div>
+</div>
+
+<script>
+let chartInstance = null; // Keep track of the chart instance for updates
+
+// Fetch dashboard data with the selected time filter
+async function fetchDashboardData() {
+    // Get the selected filter value from the dropdown
+    const filterValue = document.getElementById('timeFilter').value;
+    
+    try {
+        // Make a fetch request with the filter value as a query parameter
+        const response = await fetch(`http://localhost:8080/api/v1/admin/dashboard/fetch?filter=${filterValue}`);
+        const data = await response.json();
+
+        // Update statistics fields
+        document.getElementById('totalPatients').innerText = data.totalPatients;
+        document.getElementById('totalDoctors').innerText = data.totalDoctors;
+        document.getElementById('totalAppointments').innerText = data.totalAppointments;
+        document.getElementById('totalRevenue').innerText = `$${data.totalRevenue.toFixed(2)}`;
+
+        // Prepare data for the chart
+        const specializationNames = data.specializationStats.map(s => s.specializationName);
+        const appointmentCounts = data.specializationStats.map(s => s.appointmentCount);
+
+        // Destroy the old chart if it exists, then create a new one
+        if (chartInstance) {
+            chartInstance.destroy();
+        }
+
+        const ctx = document.getElementById('specializationChart').getContext('2d');
+        chartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: specializationNames,
+                datasets: [{
+                    label: 'Appointments by Specialization',
+                    data: appointmentCounts,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+    }
+}
+
+// Load initial data on page load
+window.onload = fetchDashboardData;
+</script>
+
+</body>
+</html>

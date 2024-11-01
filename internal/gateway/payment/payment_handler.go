@@ -84,7 +84,7 @@ func (p *PaymentServerClient) PaymentCallBack(w http.ResponseWriter, r *http.Req
 	}
 	log.Printf("Received Razorpay payment callback: OrderID: %s, PaymentID: %s,patientId: %s, Status: %s", orderID, paymentID, patientId, status)
 
-	resp, err := p.PaymentCallback(context.Background(), &payment.PaymentCallBackRequest{
+	resp, err := p.PaymentClient.PaymentCallback(context.Background(), &payment.PaymentCallBackRequest{
 		PaymentId: paymentID,
 		Status:    status,
 		OrderId:   orderID,

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Consultation</title>
     
-    <!-- Google Font for better design -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
@@ -73,19 +72,20 @@
     <!-- Jitsi Meet External API -->
     <script src="https://meet.jit.si/external_api.js"></script>
     <script>
-        // Function to get query parameter from the URL
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
+        // Function to get the room name from the URL path
+        function getRoomFromURL() {
+            const pathParts = window.location.pathname.split('/');
+            // The room ID will be the last part of the URL
+            return pathParts[pathParts.length - 1];
         }
 
-        // Get room name from the URL query parameter
-        const roomName = getQueryParam('room');
+        // Get room name from the URL path
+        const roomName = getRoomFromURL();
 
         if (roomName) {
             const domain = "meet.jit.si";
             const options = {
-                roomName: roomName, // Room ID from the query parameter
+                roomName: roomName, // Room ID from the path
                 width: "100%",
                 height: "100%",
                 parentNode: document.querySelector('#jitsi-container'),

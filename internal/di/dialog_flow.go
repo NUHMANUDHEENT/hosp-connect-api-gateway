@@ -24,7 +24,6 @@ func GetAccessToken() (string, error) {
 	if cachedToken != "" && tokenExpiryTime.After(currentTime) {
 		return cachedToken, nil
 	}
-	fmt.Println("hiiiii")
 	// Load the Service Account credentials file
 	data, err := os.ReadFile("/home/nuhmanudheen-t/Broto/2ndProject/HospitalConnect/docto-sheduler-1ebb4fc933f8.json")
 	if err != nil {

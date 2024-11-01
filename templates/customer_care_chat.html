@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Customer Support</title>
+    <title>Customer Care Chat</title>
     <style>
         * {
             margin: 0;
@@ -30,15 +30,6 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-        }
-
-        #status {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            font-size: 16px;
-            font-weight: bold;
         }
 
         #chatbox {
@@ -80,6 +71,12 @@
             align-self: flex-end;
         }
 
+        .patient-id {
+            font-size: 12px;
+            color: gray;
+            margin-bottom: 5px;
+        }
+
         #input-section {
             display: flex;
             padding: 10px;
@@ -115,7 +112,7 @@
 <body>
 
     <div id="chat-container">
-        <!-- <div id="status">...</div> -->
+        <!-- Chat messages will appear here -->
         <div id="chatbox"></div>
         <div id="input-section">
             <input type="text" id="userInput" placeholder="Type your message here...">
@@ -127,39 +124,45 @@
         const chatbox = document.getElementById('chatbox');
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
-        const status = document.getElementById('status');
 
-        // Set up WebSocket connection for customer care
         const ws = new WebSocket('ws://localhost:8080/api/v1/admin/ws');
 
         ws.onmessage = (event) => {
             const msg = JSON.parse(event.data);
-            appendMessage(msg.text, 'left'); // Patient messages will be displayed on the left
+            
+            const patientId = msg.username;
+            const messageText = msg.text;
+
+            // Append patient ID and message in a cleaner format
+            appendMessage(`Patient ID: ${patientId}`, `Message: ${messageText}`, 'left');
         };
 
         sendBtn.addEventListener('click', () => {
             const message = userInput.value.trim();
             if (message === '') return;
 
-            // Send customer care's message
+            
             const msgObj = {
                 username: 'Customer Care',
                 text: message,
-                sender: 'customer' // Indicate that the sender is customer care
+                sender: 'customer' 
             };
 
             ws.send(JSON.stringify(msgObj));
-            appendMessage(message, 'right'); // Display customer care's message on the right
+            appendMessage('Customer Care:', `Message: ${message}`, 'right'); // Display customer care's message on the right
             userInput.value = '';
         });
 
-        function appendMessage(message, side) {
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('message', side);
-            msgDiv.innerText = message;
-            chatbox.appendChild(msgDiv);
-            chatbox.scrollTop = chatbox.scrollHeight;
-        }
+     
+        function appendMessage(title, message, side) {
+    const msgDiv = document.createElement('div');  
+    msgDiv.classList.add('message', side);
+    
+    msgDiv.innerHTML = `${title}<br>${message}`; 
+
+    chatbox.appendChild(msgDiv);
+    chatbox.scrollTop = chatbox.scrollHeight;  // Scroll to the bottom
+}
     </script>
 
 </body>

@@ -16,8 +16,25 @@ import (
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/gateway/doctor"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/gateway/patient"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/gateway/payment"
+	"github.com/nuhmanudheent/hosp-connect-api-gateway/logs"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 )
+
+var (
+	requestCount = prometheus.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "api_requests_total",
+			Help: "Total number of requests processed",
+		},
+		[]string{"method"},
+	)
+)
+
+func init() {
+	prometheus.MustRegister(requestCount)
+}
 
 func main() {
 	userConn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
@@ -36,31 +53,23 @@ func main() {
 	defer appointmentConn.Close()
 	defer paymentConn.Close()
 
+	logger := logs.NewLogger()
 	router := mux.NewRouter()
-	adminClient := &admin.AdminServerClient{
-		AdminServiceClient: pbAdmin.NewAdminServiceClient(userConn),
-	}
-	doctorClient := &doctor.DoctorServerClient{
-		DoctorServiceClient: pbDoctor.NewDoctorServiceClient(userConn),
-	}
-	patientClient := &patient.PatientServerClient{
-		PatientServiceClient: pbPatient.NewPatientServiceClient(userConn),
-	}
-	appointmentClient := &appointment.AppointmentServerClient{
-		AppointmentServiceClient: pbAppointment.NewAppointmentServiceClient(appointmentConn),
-	}
-	paymentClient := &payment.PaymentServerClient{
-		PaymentServiceClient: pbPayment.NewPaymentServiceClient(paymentConn),
-	}
+	adminClient := admin.NewAdminClient(pbAdmin.NewAdminServiceClient(userConn), logger)
+	doctorClient := doctor.NewDoctorClient(pbDoctor.NewDoctorServiceClient(userConn), logger)
+	patientClient := patient.NewPatientClient(pbPatient.NewPatientServiceClient(userConn), logger)
+	appointmentClient := appointment.NewAppointmentClient(pbAppointment.NewAppointmentServiceClient(appointmentConn), logger)
+	paymentClient := payment.NewPaymentClient(pbPayment.NewPaymentServiceClient(paymentConn), logger)
 
-	admin.RegisterAdminRoutes(router, adminClient)
-	doctor.RegisterDoctorRoutes(router, doctorClient, patientClient,appointmentClient)
+	admin.RegisterAdminRoutes(router, adminClient, appointmentClient)
+	doctor.RegisterDoctorRoutes(router, doctorClient, patientClient, appointmentClient)
 	patient.RegisterPatientRoutes(router, patientClient, appointmentClient)
 	payment.RegisterPaymentRouters(router, paymentClient)
 
 	// Wrap the router with CORS middleware
 	corsHandler := di.CORS(router)
 
+	http.Handle("/metrics", promhttp.Handler())
 	log.Println("API Gateway running on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", corsHandler))
 }

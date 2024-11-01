@@ -1,0 +1,13 @@
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-01T13:43:27+05:30"}
+{"email":"nuhman@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-01T13:43:27+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-01T13:44:01+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-01T13:44:01+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-01T13:44:01+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-01T13:44:27+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"DoctorSignIn","level":"info","msg":"Doctor signed in successfully","status":"success","time":"2024-11-01T13:44:28+05:30"}
+{"level":"info","msg":"JWT token set in cookie for doctor","time":"2024-11-01T13:44:28+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-01T13:44:28+05:30"}
+{"level":"info","msg":"Received request to get doctor profile","time":"2024-11-01T13:44:31+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"GetDoctorProfile","level":"info","msg":"Fetching profile for doctor ID","time":"2024-11-01T13:44:31+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"GetDoctorProfile","level":"info","msg":"Successfully fetched profile for doctor","status":"success","time":"2024-11-01T13:44:31+05:30"}
+{"level":"info","msg":"Doctor profile response sent","time":"2024-11-01T13:44:31+05:30"}

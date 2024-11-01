@@ -3,14 +3,24 @@ package admin
 import (
 	pb "github.com/NUHMANUDHEENT/hosp-connect-pb/proto/admin"
 	"github.com/gorilla/mux"
+	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/gateway/appointment"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/middleware"
+	"github.com/sirupsen/logrus"
 )
 
 type AdminServerClient struct {
-	pb.AdminServiceClient
+	AdminClient pb.AdminServiceClient
+	Logger      *logrus.Logger
 }
 
-func RegisterAdminRoutes(router *mux.Router, adminclient *AdminServerClient) {
+func NewAdminClient(adminClient pb.AdminServiceClient, logger *logrus.Logger) *AdminServerClient {
+	return &AdminServerClient{
+		AdminClient: adminClient,
+		Logger:      logger,
+	}
+}
+
+func RegisterAdminRoutes(router *mux.Router, adminclient *AdminServerClient, appointmentClient *appointment.AppointmentServerClient) {
 	publicRouter := router.PathPrefix("/api/v1/admin").Subrouter()
 	publicRouter.HandleFunc("/signin", adminclient.AdminSignIn).Methods("POST")
 	publicRouter.HandleFunc("/logout", adminclient.AdminLogout).Methods("POST")
@@ -25,7 +35,9 @@ func RegisterAdminRoutes(router *mux.Router, adminclient *AdminServerClient) {
 	privateRouter.HandleFunc("/patient/block/{ID}", adminclient.PatientBlock)
 	privateRouter.HandleFunc("/patient/list", adminclient.ListPatientsHandler)
 	privateRouter.HandleFunc("/doctor/list", adminclient.ListDoctorsHandler)
-	privateRouter.HandleFunc("/doctor/addcategory", adminclient.AddDoctorSpecialization).Methods("POST")
+	privateRouter.HandleFunc("/doctor/addcategory", appointmentClient.AddDoctorSpecialization).Methods("POST")
 	privateRouter.HandleFunc("/customer-support", adminclient.AdminChatRender)
+	privateRouter.HandleFunc("/dashboard", appointmentClient.Dashboard)
+	privateRouter.HandleFunc("/dashboard/fetch", appointmentClient.DashboardResponse)
 
 }

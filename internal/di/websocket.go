@@ -11,11 +11,12 @@ var Upgrader = websocket.Upgrader{
 		return true // Allow all origins for simplicity
 	},
 }
+
 type Message struct {
 	Username string `json:"username"`
 	Text     string `json:"text"`
-		Sender   string `json:"sender"` // new field to identify sender
+	Sender   string `json:"sender"` 
 }
 
-var P1atientConnections = make(map[*websocket.Conn]bool)  // Active patient connections
+var PatientConnections = make(map[*websocket.Conn]bool) // Active patient connections
 var CustomerConnections = make(map[*websocket.Conn]bool) // Active customer care connections
