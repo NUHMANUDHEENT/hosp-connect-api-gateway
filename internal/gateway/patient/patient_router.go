@@ -39,8 +39,10 @@ func RegisterPatientRoutes(router *mux.Router, patientClient *PatientServerClien
 	privateRouter.HandleFunc("/get-appointments", AppointmentClient.GetAppointments).Methods("GET")
 	privateRouter.HandleFunc("/get-doctor-availability", AppointmentClient.GetAvailabilityByDoctorId).Methods("GET")
 	privateRouter.HandleFunc("/confirm-appointment", AppointmentClient.ConfirmPatientAppointment).Methods("POST")
+	privateRouter.HandleFunc("/cancel-appointment", AppointmentClient.CancelPatientAppointment).Methods("POST")
 	privateRouter.HandleFunc("/get-prescription", patientClient.GetPrescriptions)
 	privateRouter.HandleFunc("/help-desk", di.HelpDeskRender)
 	privateRouter.HandleFunc("/customer-care", patientClient.PatientChatRender)
 	privateRouter.HandleFunc("/video-call/{room}", patientClient.VideoCallRender)
+
 }

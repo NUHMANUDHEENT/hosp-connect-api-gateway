@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/di"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/calendar/v3"
@@ -25,7 +24,6 @@ type GoogleUserInfo struct {
 
 // Initialize OAuth config for Google Calendar
 func init() {
-	di.LoadEnv()
 	fmt.Println(os.Getenv("CLIENT_ID"))
 	googleOauthConfig = &oauth2.Config{
 		ClientID:     os.Getenv("CLIENT_ID"),

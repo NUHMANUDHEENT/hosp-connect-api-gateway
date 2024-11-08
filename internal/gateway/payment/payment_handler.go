@@ -100,15 +100,9 @@ func (p *PaymentServerClient) PaymentCallBack(w http.ResponseWriter, r *http.Req
 
 	// Respond to Razorpay with a success status
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Webhook received"))
+	_, err = w.Write([]byte("Webhook received"))
+	if err != nil {
+		log.Println("Failed to write response", err)
+		return
+	}
 }
-
-// func verifySignature(secret string, payload []byte, signature string) bool {
-// 	// Compute the HMAC SHA256 signature
-// 	h := hmac.New(sha256.New, []byte(secret))
-// 	h.Write(payload)
-// 	expectedSignature := base64.StdEncoding.EncodeToString(h.Sum(nil))
-
-//		// Compare the computed signature with the one sent in the header
-//		return hmac.Equal([]byte(expectedSignature), []byte(signature))
-//	}

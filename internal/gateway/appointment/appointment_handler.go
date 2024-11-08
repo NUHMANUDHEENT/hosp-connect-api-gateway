@@ -161,6 +161,49 @@ func (p *AppointmentServerClient) ConfirmPatientAppointment(w http.ResponseWrite
 	}).Info("Appointment confirmed successfully")
 	utils.JSONResponse(w, resp, http.StatusOK, r)
 }
+func (p *AppointmentServerClient) CancelPatientAppointment(w http.ResponseWriter, r *http.Request) {
+	var reqbody struct {
+		AppointmentId int32 `json:"appointmentId"`
+		Reason        string `json:"reason"`
+	}
+	err := json.NewDecoder(r.Body).Decode(&reqbody)
+	if err != nil {
+		p.Logger.WithFields(logrus.Fields{
+			"function": "CancelAppointment",
+			"error":    err.Error(),
+		}).Error("Failed to decode request body")
+		utils.JSONStandardResponse(w, "fail", "Failed to bind json data", "", http.StatusBadRequest, r)
+		return
+	}
+
+	claims, err := middleware.ExtractClaimsFromCookie(r, "patient")
+	if err != nil {
+		p.Logger.WithFields(logrus.Fields{
+			"function": "CancelAppointment",
+			"error":    err.Error(),
+		}).Error("Unauthorized access attempt")
+		utils.JSONResponse(w, "Unauthorized: "+err.Error(), http.StatusUnauthorized, r)
+		return
+	}
+	resp, err := p.CancelAppointment(context.Background(), &pb.CancelAppointmentRequest{
+		PatientId:     claims.UserId,
+		AppointmentId: reqbody.AppointmentId,
+		Reason:        reqbody.Reason,
+	})
+	if err != nil {
+		p.Logger.WithFields(logrus.Fields{
+			"function": "CancelAppointment",
+			"error":    err.Error(),
+		}).Error("Failed to call cancel appointment service")
+		utils.JSONStandardResponse(w, "fail", "Failed to call service", "", http.StatusInternalServerError, r)
+	}
+	p.Logger.WithFields(logrus.Fields{
+		"function": "CancelAppointment",
+		"response": resp,
+	}).Info("Appointment cancelled successfully")
+	utils.JSONResponse(w, resp, http.StatusOK, r)
+
+}
 
 // GetAppointments handles fetching upcoming appointments for a patient
 func (p *AppointmentServerClient) GetAppointments(w http.ResponseWriter, r *http.Request) {

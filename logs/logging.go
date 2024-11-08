@@ -14,10 +14,10 @@ func NewLogger() *logrus.Logger {
 
 	// Set up Lumberjack logger
 	lumberjackLogger := &lumberjack.Logger{
-		Filename:   "/home/nuhmanudheen-t/Broto/2ndProject/HospitalConnect/api_gateway/logs/api_gateway.log",
-		MaxSize:    10, // MB
+		Filename:   "logs/api_gateway.log",
+		MaxSize:    10,
 		MaxBackups: 5,
-		MaxAge:     30, // days
+		MaxAge:     30, 
 		Compress:   true,
 	}
 

@@ -8,7 +8,7 @@ import (
 
 var Upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
-		return true // Allow all origins for simplicity
+		return true 
 	},
 }
 
@@ -18,5 +18,5 @@ type Message struct {
 	Sender   string `json:"sender"` 
 }
 
-var PatientConnections = make(map[*websocket.Conn]bool) // Active patient connections
-var CustomerConnections = make(map[*websocket.Conn]bool) // Active customer care connections
+var PatientConnections = make(map[*websocket.Conn]bool) 
+var CustomerConnections = make(map[*websocket.Conn]bool) 

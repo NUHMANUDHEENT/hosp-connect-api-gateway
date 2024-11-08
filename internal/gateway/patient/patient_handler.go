@@ -433,6 +433,7 @@ func (d *PatientServerClient) VideoCallRender(w http.ResponseWriter, r *http.Req
 
 func (p *PatientServerClient) PatientChatHandler(w http.ResponseWriter, r *http.Request) {
 	p.Logger.Info("Patient chat connection request received")
+	
 	conn, err := di.Upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		p.Logger.WithFields(logrus.Fields{

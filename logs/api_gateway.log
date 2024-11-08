@@ -11,3 +11,363 @@
 {"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"GetDoctorProfile","level":"info","msg":"Fetching profile for doctor ID","time":"2024-11-01T13:44:31+05:30"}
 {"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"GetDoctorProfile","level":"info","msg":"Successfully fetched profile for doctor","status":"success","time":"2024-11-01T13:44:31+05:30"}
 {"level":"info","msg":"Doctor profile response sent","time":"2024-11-01T13:44:31+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-01T14:10:24+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"DoctorSignIn","level":"info","msg":"Doctor signed in successfully","status":"success","time":"2024-11-01T14:10:25+05:30"}
+{"level":"info","msg":"JWT token set in cookie for doctor","time":"2024-11-01T14:10:25+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-01T14:10:25+05:30"}
+{"level":"info","msg":"Received patient sign-in request","time":"2024-11-01T14:10:30+05:30"}
+{"function":"PatientSignIn","level":"info","msg":"Patient signed in successfully","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","status":"success","time":"2024-11-01T14:10:30+05:30"}
+{"level":"info","msg":"JWT token set in cookie for patient","time":"2024-11-01T14:10:30+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-01T14:10:30+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-01T14:11:10+05:30"}
+{"doctorId":"","function":"DoctorSignIn","level":"info","msg":"Doctor signed in successfully","status":"fail","time":"2024-11-01T14:11:10+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-01T14:11:10+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-01T14:11:43+05:30"}
+{"doctorId":"dc-f58f3212-b129-4557-9f16-9589d7f21082","function":"DoctorSignIn","level":"info","msg":"Doctor signed in successfully","status":"success","time":"2024-11-01T14:11:43+05:30"}
+{"level":"info","msg":"JWT token set in cookie for doctor","time":"2024-11-01T14:11:43+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-01T14:11:43+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-01T14:12:25+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732023000}},"time":"2024-11-01T14:12:25+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"Appointment successfully confirmed","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PFyjUpxYHFcs2G"},"time":"2024-11-01T14:12:26+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-01T14:17:09+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732109400}},"time":"2024-11-01T14:17:09+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"Appointment successfully confirmed","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PFyoW9kqo0VGRr"},"time":"2024-11-01T14:17:11+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-01T14:20:46+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732195800}},"time":"2024-11-01T14:20:46+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"Appointment successfully confirmed","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PFysJl8DCQOEiJ"},"time":"2024-11-01T14:20:47+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-01T14:24:35+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732195800}},"time":"2024-11-01T14:24:35+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"fail","message":"You have already booked an appointment for this day","status_code":400},"time":"2024-11-01T14:24:35+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-01T14:24:38+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732282200}},"time":"2024-11-01T14:24:38+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"Appointment successfully confirmed","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PFywPcOB3izXOB"},"time":"2024-11-01T14:24:40+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-01T14:28:56+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732368600}},"time":"2024-11-01T14:28:56+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"fail","message":"payment not initiated : Post \"https://api.razorpay.com/v1/orders\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)","status_code":400},"time":"2024-11-01T14:29:06+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-01T14:29:09+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732368600}},"time":"2024-11-01T14:29:09+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"Appointment successfully confirmed","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PFz1EOPyutYNxR"},"time":"2024-11-01T14:29:13+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-01T14:33:37+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-01T14:33:37+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-01T14:33:37+05:30"}
+{"level":"info","msg":"Serving admin dashboard","time":"2024-11-01T14:33:55+05:30"}
+{"level":"info","msg":"Dashboard page served successfully","time":"2024-11-01T14:33:55+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:33:56+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":1,"totalRevenue":1000,"specializationStats":[{"specializationName":"General","appointmentCount":1}],"totalDoctors":2},"time":"2024-11-01T14:33:56+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:34:00+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":2,"totalRevenue":4200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:34:00+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:34:06+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":1,"totalRevenue":1000,"specializationStats":[{"specializationName":"General","appointmentCount":1}],"totalDoctors":2},"time":"2024-11-01T14:34:06+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:34:09+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":19,"totalRevenue":1000,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:34:09+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:34:11+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":20,"totalRevenue":9200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:34:11+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:34:13+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":19,"totalRevenue":1000,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:34:13+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:34:15+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":2,"totalRevenue":4200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:34:15+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:34:23+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":19,"totalRevenue":1000,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:34:23+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:34:27+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":20,"totalRevenue":9200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:34:27+05:30"}
+{"level":"info","msg":"Serving admin dashboard","time":"2024-11-01T14:37:04+05:30"}
+{"level":"info","msg":"Dashboard page served successfully","time":"2024-11-01T14:37:04+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:37:04+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":1,"totalRevenue":1000,"specializationStats":[{"specializationName":"General","appointmentCount":1}],"totalDoctors":2},"time":"2024-11-01T14:37:04+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:37:06+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":2,"totalRevenue":4200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:37:06+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:37:09+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":19,"totalRevenue":1000,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:37:09+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:37:11+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":20,"totalRevenue":9200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:37:11+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:37:13+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":1,"totalRevenue":1000,"specializationStats":[{"specializationName":"General","appointmentCount":1}],"totalDoctors":2},"time":"2024-11-01T14:37:13+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:37:25+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":2,"totalRevenue":4200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:37:25+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:37:34+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":19,"totalRevenue":1000,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:37:34+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T14:37:38+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":20,"totalRevenue":9200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T14:37:38+05:30"}
+{"level":"info","msg":"Serving admin dashboard","time":"2024-11-01T15:05:58+05:30"}
+{"level":"info","msg":"Dashboard page served successfully","time":"2024-11-01T15:05:58+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T15:05:59+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":1,"totalRevenue":1000,"specializationStats":[{"specializationName":"General","appointmentCount":1}],"totalDoctors":2},"time":"2024-11-01T15:05:59+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T15:06:42+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":2,"totalRevenue":4200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T15:06:42+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T15:06:49+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":19,"totalRevenue":1000,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T15:06:49+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T15:06:52+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":20,"totalRevenue":9200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T15:06:52+05:30"}
+{"level":"info","msg":"Received patient sign-in request","time":"2024-11-01T15:18:40+05:30"}
+{"function":"PatientSignIn","level":"info","msg":"Patient signed in successfully","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","status":"success","time":"2024-11-01T15:18:40+05:30"}
+{"level":"info","msg":"JWT token set in cookie for patient","time":"2024-11-01T15:18:40+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-01T15:18:40+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-01T16:09:45+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":2,"totalRevenue":4200,"specializationStats":[{"specializationName":"ortho","appointmentCount":14},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-01T16:09:45+05:30"}
+{"level":"info","msg":"Received patient sign-in request","time":"2024-11-04T19:28:38+05:30"}
+{"function":"PatientSignIn","level":"info","msg":"Patient signed in successfully","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","status":"success","time":"2024-11-04T19:28:38+05:30"}
+{"level":"info","msg":"JWT token set in cookie for patient","time":"2024-11-04T19:28:38+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-04T19:28:38+05:30"}
+{"level":"info","msg":"Received request to get upcoming appointments","time":"2024-11-04T19:28:42+05:30"}
+{"function":"GetAppointments","level":"info","msg":"Upcoming appointments fetched successfully","response":{"appointments":[{"appointment_id":16,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Tue Nov 19 19:00:00 2024"},{"appointment_id":17,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Wed Nov 20 19:00:00 2024"},{"appointment_id":18,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Thu Nov 21 19:00:00 2024"},{"appointment_id":19,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Fri Nov 22 19:00:00 2024"},{"appointment_id":20,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Sat Nov 23 19:00:00 2024"}],"status":"success","status_code":200},"time":"2024-11-04T19:28:42+05:30"}
+{"level":"info","msg":"Received request to get availability by doctor ID","time":"2024-11-04T19:28:45+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"GetAvailabilityByDoctorId","level":"info","msg":"Checking availability for doctor","time":"2024-11-04T19:28:45+05:30"}
+{"function":"GetAvailabilityByDoctorId","level":"info","msg":"Doctor availability fetched successfully","response":{"status":"available","doctor_availability":[{"Date_time":"Mon Nov  4 19:28:45 2024","Is_available":"available"},{"Date_time":"Tue Nov  5 19:28:45 2024","Is_available":"available"},{"Date_time":"Wed Nov  6 19:28:45 2024","Is_available":"available"},{"Date_time":"Thu Nov  7 19:28:45 2024","Is_available":"available"},{"Date_time":"Fri Nov  8 19:28:45 2024","Is_available":"available"},{"Date_time":"Sat Nov  9 19:28:45 2024","Is_available":"available"},{"Date_time":"Mon Nov 11 19:28:45 2024","Is_available":"available"}]},"time":"2024-11-04T19:28:45+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-04T19:28:53+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732455000}},"time":"2024-11-04T19:28:53+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"fail","message":"failed to call payment service","status_code":400},"time":"2024-11-04T19:28:53+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-04T19:29:10+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732455000}},"time":"2024-11-04T19:29:10+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"fail","message":"failed to call payment service","status_code":400},"time":"2024-11-04T19:29:10+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-04T19:29:23+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732455000}},"time":"2024-11-04T19:29:23+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"Appointment successfully confirmed","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PHFjh6oWP1isDV"},"time":"2024-11-04T19:29:25+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-04T19:29:48+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732455000}},"time":"2024-11-04T19:29:48+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"fail","message":"You have already booked an appointment for this day","status_code":400},"time":"2024-11-04T19:29:48+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-04T19:34:23+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization_id":3,"confirmed_date_time":{"seconds":1732627800}},"time":"2024-11-04T19:34:23+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"Appointment successfully confirmed","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PHFowwLpU8a6ZI"},"time":"2024-11-04T19:34:23+05:30"}
+{"level":"info","msg":"Received patient sign-in request","time":"2024-11-04T21:43:21+05:30"}
+{"function":"PatientSignIn","level":"info","msg":"Patient signed in successfully","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","status":"success","time":"2024-11-04T21:43:21+05:30"}
+{"level":"info","msg":"JWT token set in cookie for patient","time":"2024-11-04T21:43:21+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-04T21:43:21+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-04T21:43:41+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","specialization_id":1,"confirmed_date_time":{"seconds":1730208600},"type":"video"},"time":"2024-11-04T21:43:41+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"Appointment successfully confirmed","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PHI1ZnHtG97Dgm"},"time":"2024-11-04T21:43:44+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-04T21:43:48+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","specialization_id":1,"confirmed_date_time":{"seconds":1730208600},"type":"video"},"time":"2024-11-04T21:43:48+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"you have already booked an appointment for this day (2024-10-29 19:00:00 +0530 IST) but not completed payment","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PHI1ZnHtG97Dgm"},"time":"2024-11-04T21:43:48+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-04T21:49:13+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","specialization_id":1,"confirmed_date_time":{"seconds":1730208600},"type":"video"},"time":"2024-11-04T21:49:13+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"you have already booked an appointment for this day (2024-10-29 19:00:00 +0530 IST) but not completed payment \n Please complete payment and confirm you shedule!","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PHI1ZnHtG97Dgm"},"time":"2024-11-04T21:49:13+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-04T21:51:46+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","request":{"patient_id":"pt-161046c0-78b5-4d12-a301-d9ea8a8b0f79","doctor_id":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","specialization_id":1,"confirmed_date_time":{"seconds":1730208600},"type":"video"},"time":"2024-11-04T21:51:46+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"you have already booked an appointment for this day (2024-10-29 19:00:00 +0530 IST) but not completed the payment so Please complete payment using belove URL and confirm your shedule!","status_code":200,"payment_url":"http://localhost:8080/api/v1/payment?orderId=order_PHI1ZnHtG97Dgm"},"time":"2024-11-04T21:51:46+05:30"}
+{"level":"info","msg":"Received patient sign-in request","time":"2024-11-04T21:54:08+05:30"}
+{"function":"PatientSignIn","level":"info","msg":"Patient signed in successfully","patientId":"","status":"fail","time":"2024-11-04T21:54:08+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-04T21:54:08+05:30"}
+{"function":"CancelAppointment","level":"info","msg":"Appointment cancelled successfully","response":{"status":"fail","status_code":"400"},"time":"2024-11-04T22:45:17+05:30"}
+{"level":"info","msg":"Received request to get upcoming appointments","time":"2024-11-04T22:46:39+05:30"}
+{"function":"GetAppointments","level":"info","msg":"Upcoming appointments fetched successfully","response":{"appointments":[{"appointment_id":16,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Tue Nov 19 19:00:00 2024"},{"appointment_id":17,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Wed Nov 20 19:00:00 2024"},{"appointment_id":18,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Thu Nov 21 19:00:00 2024"},{"appointment_id":19,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Fri Nov 22 19:00:00 2024"},{"appointment_id":20,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Sat Nov 23 19:00:00 2024"},{"appointment_id":21,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Sun Nov 24 19:00:00 2024"},{"appointment_id":22,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Tue Nov 26 19:00:00 2024"}],"status":"success","status_code":200},"time":"2024-11-04T22:46:39+05:30"}
+{"function":"CancelAppointment","level":"info","msg":"Appointment cancelled successfully","response":{"status":"succes","status_code":"200","message":"Appointment cancelled successfully"},"time":"2024-11-04T22:46:51+05:30"}
+{"level":"info","msg":"Received request to get upcoming appointments","time":"2024-11-04T22:47:28+05:30"}
+{"function":"GetAppointments","level":"info","msg":"Upcoming appointments fetched successfully","response":{"appointments":[{"appointment_id":16,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Tue Nov 19 19:00:00 2024"},{"appointment_id":17,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Wed Nov 20 19:00:00 2024"},{"appointment_id":18,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Thu Nov 21 19:00:00 2024"},{"appointment_id":19,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Fri Nov 22 19:00:00 2024"},{"appointment_id":20,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Sat Nov 23 19:00:00 2024"},{"appointment_id":21,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Sun Nov 24 19:00:00 2024"},{"appointment_id":22,"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","specialization":3,"appointment_time":"Tue Nov 26 19:00:00 2024"}],"status":"success","status_code":200},"time":"2024-11-04T22:47:28+05:30"}
+{"function":"CancelAppointment","level":"info","msg":"Appointment cancelled successfully","response":{"status":"fail","status_code":"400"},"time":"2024-11-04T22:47:56+05:30"}
+{"function":"CancelAppointment","level":"info","msg":"Appointment cancelled successfully","response":{"status":"fail","status_code":"400"},"time":"2024-11-04T22:47:59+05:30"}
+{"function":"CancelAppointment","level":"info","msg":"Appointment cancelled successfully","response":{"status":"fail","status_code":"400"},"time":"2024-11-04T22:48:02+05:30"}
+{"function":"CancelAppointment","level":"info","msg":"Appointment cancelled successfully","response":{"status":"fail","status_code":"400"},"time":"2024-11-04T22:48:04+05:30"}
+{"function":"CancelAppointment","level":"info","msg":"Appointment cancelled successfully","response":{"status":"succes","status_code":"200","message":"Appointment cancelled successfully"},"time":"2024-11-04T22:48:06+05:30"}
+{"function":"CancelAppointment","level":"info","msg":"Appointment cancelled successfully","response":{"status":"succes","status_code":"200","message":"Appointment cancelled successfully"},"time":"2024-11-04T22:48:15+05:30"}
+{"level":"info","msg":"Received patient sign-in request","time":"2024-11-06T11:28:43+05:30"}
+{"function":"PatientSignIn","level":"info","msg":"Patient signed in successfully","patientId":"","status":"fail","time":"2024-11-06T11:28:43+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-06T11:28:43+05:30"}
+{"level":"info","msg":"Received patient sign-in request","time":"2024-11-06T11:29:55+05:30"}
+{"function":"PatientSignIn","level":"info","msg":"Patient signed in successfully","patientId":"","status":"fail","time":"2024-11-06T11:29:55+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-06T11:29:55+05:30"}
+{"level":"info","msg":"Received patient sign-in request","time":"2024-11-06T11:30:03+05:30"}
+{"function":"PatientSignIn","level":"info","msg":"Patient signed in successfully","patientId":"pt-3317e7bc-a276-4217-9d48-a6ae8fb04fb2","status":"success","time":"2024-11-06T11:30:03+05:30"}
+{"level":"info","msg":"JWT token set in cookie for patient","time":"2024-11-06T11:30:03+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-06T11:30:03+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:30:07+05:30"}
+{"error":"json: cannot unmarshal string into Go struct field .categoryid of type int","function":"GetAvailability","level":"error","msg":"Failed to decode request body","time":"2024-11-06T11:30:07+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:30:12+05:30"}
+{"categoryID":0,"function":"GetAvailability","level":"info","msg":"Processing availability check","requestedTime":"0001-01-01T00:00:00Z","time":"2024-11-06T11:30:12+05:30"}
+{"function":"GetAvailability","level":"info","msg":"Availability fetched successfully","response":{},"time":"2024-11-06T11:30:12+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:30:18+05:30"}
+{"categoryID":0,"function":"GetAvailability","level":"info","msg":"Processing availability check","requestedTime":"0001-01-01T00:00:00Z","time":"2024-11-06T11:30:18+05:30"}
+{"function":"GetAvailability","level":"info","msg":"Availability fetched successfully","response":{},"time":"2024-11-06T11:30:18+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:30:25+05:30"}
+{"categoryID":0,"function":"GetAvailability","level":"info","msg":"Processing availability check","requestedTime":"0001-01-01T00:00:00Z","time":"2024-11-06T11:30:25+05:30"}
+{"function":"GetAvailability","level":"info","msg":"Availability fetched successfully","response":{},"time":"2024-11-06T11:30:25+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:30:28+05:30"}
+{"categoryID":0,"function":"GetAvailability","level":"info","msg":"Processing availability check","requestedTime":"0001-01-01T00:00:00Z","time":"2024-11-06T11:30:28+05:30"}
+{"function":"GetAvailability","level":"info","msg":"Availability fetched successfully","response":{},"time":"2024-11-06T11:30:28+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:31:05+05:30"}
+{"categoryID":0,"function":"GetAvailability","level":"info","msg":"Processing availability check","requestedTime":"0001-01-01T00:00:00Z","time":"2024-11-06T11:31:05+05:30"}
+{"function":"GetAvailability","level":"info","msg":"Availability fetched successfully","response":{},"time":"2024-11-06T11:31:05+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:31:12+05:30"}
+{"categoryID":0,"function":"GetAvailability","level":"info","msg":"Processing availability check","requestedTime":"0001-01-01T00:00:00Z","time":"2024-11-06T11:31:12+05:30"}
+{"function":"GetAvailability","level":"info","msg":"Availability fetched successfully","response":{},"time":"2024-11-06T11:31:12+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:31:38+05:30"}
+{"error":"parsing time \"2024-10-2T13:30:00Z\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"2T13:30:00Z\" as \"02\"","function":"GetAvailability","level":"error","msg":"Failed to decode request body","time":"2024-11-06T11:31:38+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:32:02+05:30"}
+{"error":"parsing time \"2024-10-2T13:30:00Z\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"2T13:30:00Z\" as \"02\"","function":"GetAvailability","level":"error","msg":"Failed to decode request body","time":"2024-11-06T11:32:02+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:32:15+05:30"}
+{"error":"parsing time \"2024-10-2T13:30:00Z\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"2T13:30:00Z\" as \"02\"","function":"GetAvailability","level":"error","msg":"Failed to decode request body","time":"2024-11-06T11:32:15+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:33:00+05:30"}
+{"error":"json: cannot unmarshal string into Go struct field .categoryid of type int","function":"GetAvailability","level":"error","msg":"Failed to decode request body","time":"2024-11-06T11:33:00+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:33:08+05:30"}
+{"error":"json: cannot unmarshal string into Go struct field .categoryid of type int","function":"GetAvailability","level":"error","msg":"Failed to decode request body","time":"2024-11-06T11:33:08+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:33:12+05:30"}
+{"error":"json: cannot unmarshal string into Go struct field .categoryid of type int","function":"GetAvailability","level":"error","msg":"Failed to decode request body","time":"2024-11-06T11:33:12+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:33:31+05:30"}
+{"categoryID":4,"function":"GetAvailability","level":"info","msg":"Processing availability check","requestedTime":"2024-11-07T13:30:00Z","time":"2024-11-06T11:33:31+05:30"}
+{"function":"GetAvailability","level":"info","msg":"Availability fetched successfully","response":{},"time":"2024-11-06T11:33:31+05:30"}
+{"level":"info","msg":"Received request to get availability","time":"2024-11-06T11:33:38+05:30"}
+{"categoryID":1,"function":"GetAvailability","level":"info","msg":"Processing availability check","requestedTime":"2024-11-07T13:30:00Z","time":"2024-11-06T11:33:38+05:30"}
+{"function":"GetAvailability","level":"info","msg":"Availability fetched successfully","response":{"available_slots":[{"doctor_id":"dc-f58f3212-b129-4557-9f16-9589d7f21082","doctor_name":"nuhman"}]},"time":"2024-11-06T11:33:38+05:30"}
+{"level":"info","msg":"Received request to get availability by doctor ID","time":"2024-11-06T11:34:58+05:30"}
+{"doctorId":"dc-f58f3212-b129-4557-9f16-9589d7f21082","function":"GetAvailabilityByDoctorId","level":"info","msg":"Checking availability for doctor","time":"2024-11-06T11:34:58+05:30"}
+{"function":"GetAvailabilityByDoctorId","level":"info","msg":"Doctor availability fetched successfully","response":{"status":"available","doctor_availability":[{"Date_time":"Wed Nov  6 11:34:58 2024","Is_available":"available"},{"Date_time":"Thu Nov  7 11:34:58 2024","Is_available":"available"},{"Date_time":"Fri Nov  8 11:34:58 2024","Is_available":"available"},{"Date_time":"Sat Nov  9 11:34:58 2024","Is_available":"available"},{"Date_time":"Mon Nov 11 11:34:58 2024","Is_available":"available"},{"Date_time":"Tue Nov 12 11:34:58 2024","Is_available":"available"},{"Date_time":"Wed Nov 13 11:34:58 2024","Is_available":"available"}]},"time":"2024-11-06T11:34:58+05:30"}
+{"level":"info","msg":"Received request to get upcoming appointments","time":"2024-11-06T11:35:04+05:30"}
+{"function":"GetAppointments","level":"info","msg":"Upcoming appointments fetched successfully","response":{"status":"success","status_code":200},"time":"2024-11-06T11:35:04+05:30"}
+{"level":"info","msg":"Received request to get upcoming appointments","time":"2024-11-06T11:35:25+05:30"}
+{"function":"GetAppointments","level":"info","msg":"Upcoming appointments fetched successfully","response":{"status":"success","status_code":200},"time":"2024-11-06T11:35:25+05:30"}
+{"level":"info","msg":"Received request to get upcoming appointments","time":"2024-11-06T11:35:41+05:30"}
+{"function":"GetAppointments","level":"info","msg":"Upcoming appointments fetched successfully","response":{"status":"success","status_code":200},"time":"2024-11-06T11:35:41+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-06T11:55:58+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-3317e7bc-a276-4217-9d48-a6ae8fb04fb2","request":{"patient_id":"pt-3317e7bc-a276-4217-9d48-a6ae8fb04fb2","doctor_id":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","specialization_id":1,"confirmed_date_time":{"seconds":1730208600},"type":"video"},"time":"2024-11-06T11:55:58+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"No slot available. Suggested next slot: 5:30 PM","status_code":200},"time":"2024-11-06T11:55:58+05:30"}
+{"level":"info","msg":"Received request to confirm patient appointment","time":"2024-11-06T11:58:38+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Confirming patient appointment","patientId":"pt-3317e7bc-a276-4217-9d48-a6ae8fb04fb2","request":{"patient_id":"pt-3317e7bc-a276-4217-9d48-a6ae8fb04fb2","doctor_id":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","specialization_id":1,"confirmed_date_time":{"seconds":1730208600},"type":"video"},"time":"2024-11-06T11:58:38+05:30"}
+{"function":"ConfirmPatientAppointment","level":"info","msg":"Appointment confirmed successfully","response":{"status":"success","message":"No slot available. Suggested next slot: 5:30 PM","status_code":200},"time":"2024-11-06T11:58:38+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:06:30+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:07:18+05:30"}
+{"email":"","error":"rpc error: code = Unavailable desc = error reading from server: EOF","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:07:18+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:07:35+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:07:35+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:07:51+05:30"}
+{"email":"nuhmanudheent@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-06T12:07:51+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:08:00+05:30"}
+{"email":"","error":"rpc error: code = Unavailable desc = error reading from server: EOF","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:08:00+05:30"}
+{"level":"info","msg":"Patient chat connection request received","time":"2024-11-06T12:17:31+05:30"}
+{"error":"invalid character 'm' looking for beginning of value","function":"PatientChatHandler","level":"error","msg":"Error reading message from patient","time":"2024-11-06T12:17:50+05:30"}
+{"level":"info","msg":"Patient chat connection request received","time":"2024-11-06T12:18:03+05:30"}
+{"error":"invalid character 'm' looking for beginning of value","function":"PatientChatHandler","level":"error","msg":"Error reading message from patient","time":"2024-11-06T12:18:04+05:30"}
+{"level":"info","msg":"Patient chat connection request received","time":"2024-11-06T12:18:33+05:30"}
+{"function":"PatientChatHandler","level":"info","message":{"username":"","text":"","sender":""},"msg":"Received message from patient","time":"2024-11-06T12:18:34+05:30"}
+{"function":"PatientChatHandler","level":"info","message":{"username":"","text":"hi","sender":""},"msg":"Received message from patient","time":"2024-11-06T12:18:57+05:30"}
+{"error":"websocket: close 1000 (normal)","function":"PatientChatHandler","level":"error","msg":"Error reading message from patient","time":"2024-11-06T12:19:40+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:38:43+05:30"}
+{"email":"","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:38:43+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:40:17+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:40:17+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:40:43+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:40:43+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:40:48+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:40:48+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:40:59+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:40:59+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:41:01+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:41:01+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:41:01+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:41:01+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:41:02+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-06T12:41:02+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:41:30+05:30"}
+{"email":"nuhmanudheent@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-06T12:41:30+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:41:36+05:30"}
+{"email":"nuhmanudheent@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-06T12:41:36+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:42:26+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-06T12:42:26+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-06T12:42:26+05:30"}
+{"level":"info","msg":"Serving admin dashboard","time":"2024-11-06T12:42:55+05:30"}
+{"level":"info","msg":"Dashboard page served successfully","time":"2024-11-06T12:42:55+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-06T12:42:55+05:30"}
+{"error":"rpc error: code = Unknown desc = failed to get total revenue","function":"DashboardResponse","level":"error","msg":"Failed to fetch dashboard stats","time":"2024-11-06T12:42:55+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-06T12:43:18+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":6,"totalRevenue":600,"specializationStats":[{"specializationName":"ortho","appointmentCount":16},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-06T12:43:18+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-06T12:43:20+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":21,"totalRevenue":1600,"specializationStats":[{"specializationName":"ortho","appointmentCount":16},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":4}],"totalDoctors":2},"time":"2024-11-06T12:43:20+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-06T12:55:05+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":6,"totalRevenue":600,"specializationStats":[{"specializationName":"ortho","appointmentCount":16},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-06T12:55:05+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-06T12:55:07+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":23,"totalRevenue":9800,"specializationStats":[{"specializationName":"ortho","appointmentCount":16},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":4}],"totalDoctors":2},"time":"2024-11-06T12:55:07+05:30"}
+{"function":"AdminLogout","level":"info","msg":"AdminLogout: Admin logged out successfully","time":"2024-11-06T12:55:46+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-06T12:57:06+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-06T12:57:06+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-06T12:57:06+05:30"}
+{"level":"info","msg":"Received request to add a new doctor specialization","time":"2024-11-06T12:58:01+05:30"}
+{"function":"AddDoctorSpecialization","level":"info","msg":"Doctor specialization added successfully","response":{"status":"success","status_code":200,"message":"Category created successfully"},"time":"2024-11-06T12:58:01+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-06T12:58:41+05:30"}
+{"email":"nuhman@gmail.com","function":"PatientCreate","level":"info","msg":"PatientCreate: Patient created successfully","time":"2024-11-06T13:00:35+05:30"}
+{"doctorID":"ds","function":"DoctorDelete","level":"info","msg":"DoctorDelete: Doctor deleted successfully","time":"2024-11-06T13:01:16+05:30"}
+{"function":"PatientDelete","level":"info","msg":"PatientDelete: Patient deleted successfully","patientId":"dss","time":"2024-11-06T13:01:36+05:30"}
+{"function":"PatientBlock","level":"info","msg":"PatientBlock: Patient blocked successfully","patientId":"dsf","reason":"nil","time":"2024-11-06T13:02:21+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-06T13:02:47+05:30"}
+{"doctorId":"","function":"DoctorSignIn","level":"info","msg":"Doctor signed in successfully","status":"fail","time":"2024-11-06T13:02:47+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-06T13:02:47+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-06T13:02:56+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"DoctorSignIn","level":"info","msg":"Doctor signed in successfully","status":"success","time":"2024-11-06T13:02:56+05:30"}
+{"level":"info","msg":"JWT token set in cookie for doctor","time":"2024-11-06T13:02:56+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-06T13:02:56+05:30"}
+{"level":"info","msg":"Doctor logged out successfully","time":"2024-11-06T13:03:00+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-06T13:03:05+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"DoctorSignIn","level":"info","msg":"Doctor signed in successfully","status":"success","time":"2024-11-06T13:03:05+05:30"}
+{"level":"info","msg":"JWT token set in cookie for doctor","time":"2024-11-06T13:03:05+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-06T13:03:05+05:30"}
+{"level":"info","msg":"Received request to get doctor profile","time":"2024-11-06T13:03:09+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"GetDoctorProfile","level":"info","msg":"Fetching profile for doctor ID","time":"2024-11-06T13:03:09+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"GetDoctorProfile","level":"info","msg":"Successfully fetched profile for doctor","status":"success","time":"2024-11-06T13:03:09+05:30"}
+{"level":"info","msg":"Doctor profile response sent","time":"2024-11-06T13:03:09+05:30"}
+{"level":"info","msg":"Received request to confirm schedule","time":"2024-11-06T13:03:35+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"ConfirmScheduleHandler","level":"info","msg":"Making gRPC call to confirm schedule","time":"2024-11-06T13:03:35+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","error":"googleapi: Error 401: Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.\nMore details:\nReason: authError, Message: Invalid Credentials\n","function":"ConfirmScheduleHandler","level":"error","msg":"Failed to confirm schedule: googleapi: Error 401: Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.\nMore details:\nReason: authError, Message: Invalid Credentials\n","time":"2024-11-06T13:03:35+05:30"}
+{"level":"info","msg":"Received request to add prescription for patient","time":"2024-11-06T13:03:47+05:30"}
+{"function":"AddPrescriptionForPatient","level":"info","msg":"Prescription added successfully","patientId":"pt-5ec7471f-eaee-4ac3-99aa-c2832826d9fc","time":"2024-11-06T13:03:47+05:30"}
+{"level":"info","msg":"Received request to get prescriptions for doctor","time":"2024-11-06T13:04:05+05:30"}
+{"function":"GetPrescriptionsForDoctors","level":"info","msg":"Fetching prescriptions for doctor with query","query":"","time":"2024-11-06T13:04:05+05:30"}
+{"error":"EOF","function":"GetPrescriptionsForDoctors","level":"error","msg":"Invalid request format","time":"2024-11-06T13:04:05+05:30"}
+{"level":"info","msg":"Received request to get prescriptions for doctor","time":"2024-11-06T13:04:42+05:30"}
+{"function":"GetPrescriptionsForDoctors","level":"info","msg":"Fetching prescriptions for doctor with query","query":"odl","time":"2024-11-06T13:04:42+05:30"}
+{"error":"EOF","function":"GetPrescriptionsForDoctors","level":"error","msg":"Invalid request format","time":"2024-11-06T13:04:42+05:30"}
+{"level":"info","msg":"Received request to get prescriptions for doctor","time":"2024-11-06T13:04:45+05:30"}
+{"function":"GetPrescriptionsForDoctors","level":"info","msg":"Fetching prescriptions for doctor with query","query":"old","time":"2024-11-06T13:04:45+05:30"}
+{"error":"EOF","function":"GetPrescriptionsForDoctors","level":"error","msg":"Invalid request format","time":"2024-11-06T13:04:45+05:30"}
+{"level":"info","msg":"Received request to get prescriptions for doctor","time":"2024-11-06T13:05:15+05:30"}
+{"function":"GetPrescriptionsForDoctors","level":"info","msg":"Fetching prescriptions for doctor with query","query":"old","time":"2024-11-06T13:05:15+05:30"}
+{"function":"GetPrescriptionsForDoctors","level":"info","msg":"Fetched prescriptions for doctor successfully","patientId":"dsa","time":"2024-11-06T13:05:15+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-06T13:52:36+05:30"}
+{"error":"rpc error: code = Unknown desc = failed to get total revenue","function":"DashboardResponse","level":"error","msg":"Failed to fetch dashboard stats","time":"2024-11-06T13:52:36+05:30"}
+{"level":"info","msg":"Fetching dashboard statistics","time":"2024-11-06T13:52:37+05:30"}
+{"function":"DashboardResponse","level":"info","msg":"Dashboard statistics fetched successfully","response":{"totalPatients":3,"totalAppointments":6,"totalRevenue":600,"specializationStats":[{"specializationName":"ortho","appointmentCount":16},{"specializationName":"Skin","appointmentCount":3},{"specializationName":"General","appointmentCount":3}],"totalDoctors":2},"time":"2024-11-06T13:52:37+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-07T23:51:19+05:30"}
+{"email":"nuhman@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-07T23:51:19+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-07T23:51:31+05:30"}
+{"email":"nuhman@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-07T23:51:31+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-07T23:51:37+05:30"}
+{"email":"nuhman@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-07T23:51:37+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-07T23:51:38+05:30"}
+{"email":"nuhman@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-07T23:51:38+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-07T23:51:57+05:30"}
+{"email":"nuhman@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-07T23:51:57+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-07T23:52:05+05:30"}
+{"email":"nuhman@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-07T23:52:05+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-07T23:52:06+05:30"}
+{"email":"nuhman@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-07T23:52:06+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-07T23:52:56+05:30"}
+{"email":"nuhman@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-07T23:52:56+05:30"}
+{"level":"info","msg":"Received patient sign-in request","time":"2024-11-07T23:53:07+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"PatientSignIn","level":"error","msg":"gRPC error during patient sign-in","time":"2024-11-07T23:53:07+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-07T23:53:51+05:30"}
+{"email":"nuhman@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-07T23:53:51+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-07T23:56:19+05:30"}
+{"email":"","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-07T23:56:19+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-07T23:58:25+05:30"}
+{"email":"nuhmanudheen@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"PatientSignUp","level":"error","msg":"gRPC error during patient signup","time":"2024-11-07T23:58:25+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-08T00:04:34+05:30"}
+{"email":"nuhmanudheen@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"PatientSignUp","level":"error","msg":"gRPC error during patient signup","time":"2024-11-08T00:04:34+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-08T00:04:42+05:30"}
+{"email":"nuhmanudheen@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"PatientSignUp","level":"error","msg":"gRPC error during patient signup","time":"2024-11-08T00:04:42+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-08T00:04:44+05:30"}
+{"email":"nuhmanudheen@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"PatientSignUp","level":"error","msg":"gRPC error during patient signup","time":"2024-11-08T00:04:44+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-08T00:05:15+05:30"}
+{"email":"nuhmanudheen@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"PatientSignUp","level":"error","msg":"gRPC error during patient signup","time":"2024-11-08T00:05:15+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-08T00:05:16+05:30"}
+{"email":"nuhmanudheen@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"PatientSignUp","level":"error","msg":"gRPC error during patient signup","time":"2024-11-08T00:05:16+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-08T00:05:43+05:30"}
+{"email":"nuhmanudheen@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"PatientSignUp","level":"error","msg":"gRPC error during patient signup","time":"2024-11-08T00:05:43+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-08T00:07:11+05:30"}
+{"email":"nuhmanudheen@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"PatientSignUp","level":"error","msg":"gRPC error during patient signup","time":"2024-11-08T00:07:11+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-08T00:07:12+05:30"}
+{"email":"nuhmanudheen@gmail.com","error":"rpc error: code = Canceled desc = grpc: the client connection is closing","function":"PatientSignUp","level":"error","msg":"gRPC error during patient signup","time":"2024-11-08T00:07:12+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-08T00:08:16+05:30"}
+{"email":"","error":"rpc error: code = Unavailable desc = error reading from server: EOF","function":"AdminSignIn","level":"error","msg":"AdminSignIn: gRPC error during sign-in","time":"2024-11-08T00:08:16+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-08T00:09:45+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-08T00:11:42+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-08T00:11:42+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-08T00:11:42+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-08T00:12:05+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-08T00:12:05+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-08T00:12:05+05:30"}

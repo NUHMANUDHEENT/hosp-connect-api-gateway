@@ -112,11 +112,14 @@ async function fetchDashboardData() {
         const response = await fetch(`http://localhost:8080/api/v1/admin/dashboard/fetch?filter=${filterValue}`);
         const data = await response.json();
 
+        // Calculate total revenue as totalAppointments * 200
+        const totalRevenue = data.totalAppointments * 200;
+
         // Update statistics fields
         document.getElementById('totalPatients').innerText = data.totalPatients;
         document.getElementById('totalDoctors').innerText = data.totalDoctors;
         document.getElementById('totalAppointments').innerText = data.totalAppointments;
-        document.getElementById('totalRevenue').innerText = `$${data.totalRevenue.toFixed(2)}`;
+        document.getElementById('totalRevenue').innerText = `$${totalRevenue.toFixed(2)}`;
 
         // Prepare data for the chart
         const specializationNames = data.specializationStats.map(s => s.specializationName);
@@ -157,6 +160,7 @@ async function fetchDashboardData() {
 
 // Load initial data on page load
 window.onload = fetchDashboardData;
+
 </script>
 
 </body>

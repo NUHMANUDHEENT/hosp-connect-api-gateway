@@ -11,6 +11,7 @@ import (
 	"time"
 
 	pb "github.com/NUHMANUDHEENT/hosp-connect-pb/proto/admin"
+	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
 	"github.com/sirupsen/logrus"
@@ -22,11 +23,8 @@ import (
 
 const role = "admin"
 
-// AdminSignIn handles the admin sign-in via gRPC
 func (a *AdminServerClient) AdminSignIn(w http.ResponseWriter, r *http.Request) {
 	a.Logger.Info("AdminSignIn: Starting sign-in process")
-
-	// Parse the JSON request body
 	var reqBody struct {
 		Email    string `json:"email"`
 		Password string `json:"password"`
@@ -40,6 +38,11 @@ func (a *AdminServerClient) AdminSignIn(w http.ResponseWriter, r *http.Request) 
 	err = json.Unmarshal(body, &reqBody)
 	if err != nil {
 		utils.JSONResponse(w, "Invalid request format", http.StatusBadRequest, r)
+		return
+	}
+	validate := validator.New()
+	if err := validate.Struct(reqBody); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -333,7 +336,7 @@ func sendMessageToPatients(msg di.Message) {
 		err := conn.WriteMessage(websocket.TextMessage, messageJSON)
 		if err != nil {
 			log.Println("Error sending message to patient:", err)
-			conn.Close()                         // Close the connection on error
+			conn.Close()                        // Close the connection on error
 			delete(di.PatientConnections, conn) // Clean up inactive connections
 		}
 	}

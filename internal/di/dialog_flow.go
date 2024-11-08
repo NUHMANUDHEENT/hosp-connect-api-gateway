@@ -96,12 +96,23 @@ func HelpDeskHandler(w http.ResponseWriter, r *http.Request) {
 
 	defer resp.Body.Close()
 	var dialogflowResp map[string]interface{}
-	json.NewDecoder(resp.Body).Decode(&dialogflowResp)
+	err = json.NewDecoder(resp.Body).Decode(&dialogflowResp)
+	if err != nil {
+		http.Error(w, "Error parsing Dialogflow response", http.StatusInternalServerError)
+		return
+	}
 
-
-	fulfillmentText := dialogflowResp["queryResult"].(map[string]interface{})["fulfillmentText"].(string)
+	fulfillmentText, ok := dialogflowResp["queryResult"].(map[string]interface{})["fulfillmentText"].(string)
+	if !ok {
+		http.Error(w, "Error getting fulfillment text", http.StatusInternalServerError)
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{
+	err = json.NewEncoder(w).Encode(map[string]string{
 		"reply": fulfillmentText,
 	})
+	if err != nil {
+		log.Println("failed to send data")
+		return
+	}
 }
