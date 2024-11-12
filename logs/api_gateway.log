@@ -371,3 +371,101 @@
 {"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-08T00:12:05+05:30"}
 {"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-08T00:12:05+05:30"}
 {"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-08T00:12:05+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-08T16:14:03+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-08T16:14:03+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-08T16:14:03+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-08T16:14:08+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-08T16:14:08+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-08T16:14:08+05:30"}
+{"level":"info","msg":"Received request to add a new doctor specialization","time":"2024-11-08T16:14:12+05:30"}
+{"function":"AddDoctorSpecialization","level":"info","msg":"Doctor specialization added successfully","response":{"status":"fail","status_code":400,"error":"ERROR: duplicate key value violates unique constraint \"uni_specializations_name\" (SQLSTATE 23505)"},"time":"2024-11-08T16:14:12+05:30"}
+{"function":"AdminLogout","level":"info","msg":"AdminLogout: Admin logged out successfully","time":"2024-11-08T16:15:52+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-08T16:17:05+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-08T16:17:05+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-08T16:17:05+05:30"}
+{"level":"info","msg":"Received request to add a new doctor specialization","time":"2024-11-08T16:17:08+05:30"}
+{"function":"AddDoctorSpecialization","level":"info","msg":"Doctor specialization added successfully","response":{"status":"success","status_code":200,"message":"Category created successfully"},"time":"2024-11-08T16:17:08+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-08T16:17:44+05:30"}
+{"email":"example@example.com","function":"DoctorRegister","level":"info","msg":"DoctorRegister: Doctor registered successfully","time":"2024-11-08T16:17:44+05:30"}
+{"doctorID":"dc-16209d19-be9b-4bb9-894d-31d15a9466fc","function":"DoctorDelete","level":"info","msg":"DoctorDelete: Doctor deleted successfully","time":"2024-11-08T16:18:43+05:30"}
+{"doctorID":"dc-16209d19-be9b-4bb9-894d-31d15a9466fc","function":"DoctorDelete","level":"info","msg":"DoctorDelete: Doctor deleted successfully","time":"2024-11-08T16:18:56+05:30"}
+{"doctorID":"dc-16209d19-be9b-4bb9-894d-31d15a9466fc","function":"DoctorDelete","level":"info","msg":"DoctorDelete: Doctor deleted successfully","time":"2024-11-08T16:19:59+05:30"}
+{"email":"abdin@gmail.com","function":"PatientCreate","level":"info","msg":"PatientCreate: Patient created successfully","time":"2024-11-08T16:22:25+05:30"}
+{"function":"PatientDelete","level":"info","msg":"PatientDelete: Patient deleted successfully","patientId":"pt-76f88d9e-1079-49a2-8470-7b00b80d83e8","time":"2024-11-08T16:23:05+05:30"}
+{"function":"PatientDelete","level":"info","msg":"PatientDelete: Patient deleted successfully","patientId":"pt-76f88d9e-1079-49a2-8470-7b00b80d83e8","time":"2024-11-08T16:23:52+05:30"}
+{"function":"PatientBlock","level":"info","msg":"PatientBlock: Patient blocked successfully","patientId":"pt-76f88d9e-1079-49a2-8470-7b00b80d83e8","reason":"nil","time":"2024-11-08T16:24:06+05:30"}
+{"function":"PatientBlock","level":"info","msg":"PatientBlock: Patient blocked successfully","patientId":"pt-d5ae0690-389b-46fc-89a4-3dc8eda144e8","reason":"nil","time":"2024-11-08T16:24:30+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-08T16:25:22+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"DoctorSignIn","level":"info","msg":"Doctor signed in successfully","status":"success","time":"2024-11-08T16:25:22+05:30"}
+{"level":"info","msg":"JWT token set in cookie for doctor","time":"2024-11-08T16:25:22+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-08T16:25:22+05:30"}
+{"level":"info","msg":"Doctor logged out successfully","time":"2024-11-08T17:37:36+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-08T17:41:46+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"DoctorSignIn","level":"info","msg":"Doctor signed in successfully","status":"success","time":"2024-11-08T17:41:47+05:30"}
+{"level":"info","msg":"JWT token set in cookie for doctor","time":"2024-11-08T17:41:47+05:30"}
+{"level":"info","msg":"Sign-in response sent","time":"2024-11-08T17:41:47+05:30"}
+{"level":"info","msg":"Received request to get doctor profile","time":"2024-11-08T17:41:51+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"GetDoctorProfile","level":"info","msg":"Fetching profile for doctor ID","time":"2024-11-08T17:41:51+05:30"}
+{"doctorId":"dc-c06e436c-2872-4b17-a353-0cf70f849f6c","function":"GetDoctorProfile","level":"info","msg":"Successfully fetched profile for doctor","status":"success","time":"2024-11-08T17:41:51+05:30"}
+{"level":"info","msg":"Doctor profile response sent","time":"2024-11-08T17:41:51+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T09:48:08+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-10T09:48:08+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-10T09:48:08+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T09:48:12+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T09:48:23+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T09:48:26+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T09:50:20+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T09:54:05+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T09:54:12+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-10T09:54:12+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-10T09:54:12+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T09:59:51+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-10T09:59:51+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-10T09:59:51+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T09:59:55+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T09:59:59+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T10:00:00+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T10:00:10+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-10T10:00:10+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-10T10:00:10+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:02:46+05:30"}
+{"email":"example@example.com","function":"DoctorRegister","level":"info","msg":"DoctorRegister: Doctor registered successfully","time":"2024-11-10T10:02:47+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:02:53+05:30"}
+{"email":"123@example.com","function":"DoctorRegister","level":"info","msg":"DoctorRegister: Doctor registered successfully","time":"2024-11-10T10:02:53+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:03:22+05:30"}
+{"email":"123@example.com","function":"DoctorRegister","level":"info","msg":"DoctorRegister: Doctor registered successfully","time":"2024-11-10T10:03:23+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:05:02+05:30"}
+{"email":"123@example.com","function":"DoctorRegister","level":"info","msg":"DoctorRegister: Doctor registered successfully","time":"2024-11-10T10:05:03+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:05:18+05:30"}
+{"email":"123@example.com","function":"DoctorRegister","level":"info","msg":"DoctorRegister: Doctor registered successfully","time":"2024-11-10T10:05:19+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:06:08+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:06:16+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:06:26+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:06:44+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:06:50+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:07:01+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T10:07:05+05:30"}
+{"level":"info","msg":"AdminSignIn: Starting sign-in process","time":"2024-11-10T14:57:10+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: JWT token created successfully","time":"2024-11-10T14:57:10+05:30"}
+{"email":"nuhman@gmail.com","function":"AdminSignIn","level":"info","msg":"AdminSignIn: Sign-in successful","time":"2024-11-10T14:57:10+05:30"}
+{"level":"info","msg":"DoctorRegister: Starting registration process","time":"2024-11-10T14:57:12+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-11T09:48:34+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T09:48:34+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-11T09:49:16+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = dns: A record lookup error: lookup user-service on 127.0.0.53:53: server misbehaving","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T09:49:16+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-11T09:49:25+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = dns: A record lookup error: lookup user-service on 127.0.0.53:53: server misbehaving","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T09:49:25+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-11T10:07:26+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = dns: A record lookup error: lookup user-service on 127.0.0.53:53: server misbehaving","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T10:07:26+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-11T10:07:47+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T10:07:47+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-11T10:11:36+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 127.0.0.1:50051: connect: connection refused\"","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T10:11:36+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-11T10:11:42+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = dns: A record lookup error: lookup user-service on 127.0.0.53:53: server misbehaving","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T10:11:42+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-11T10:11:46+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = dns: A record lookup error: lookup user-service on 127.0.0.53:53: server misbehaving","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T10:11:46+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-11T10:14:28+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = dns: A record lookup error: lookup user-service on 127.0.0.53:53: server misbehaving","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T10:14:28+05:30"}
+{"level":"info","msg":"Received sign-in request","time":"2024-11-11T10:14:29+05:30"}
+{"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = dns: A record lookup error: lookup user-service on 127.0.0.53:53: server misbehaving","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T10:14:29+05:30"}

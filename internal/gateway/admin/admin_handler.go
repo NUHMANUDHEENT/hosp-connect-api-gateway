@@ -3,7 +3,6 @@ package admin
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -11,7 +10,6 @@ import (
 	"time"
 
 	pb "github.com/NUHMANUDHEENT/hosp-connect-pb/proto/admin"
-	"github.com/go-playground/validator/v10"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
 	"github.com/sirupsen/logrus"
@@ -26,8 +24,8 @@ const role = "admin"
 func (a *AdminServerClient) AdminSignIn(w http.ResponseWriter, r *http.Request) {
 	a.Logger.Info("AdminSignIn: Starting sign-in process")
 	var reqBody struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
+		Email    string `json:"email" validate:"required,email"`    // must be a valid email
+		Password string `json:"password" validate:"required,min=8"` // minimum length of 8 characters
 	}
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -40,9 +38,9 @@ func (a *AdminServerClient) AdminSignIn(w http.ResponseWriter, r *http.Request) 
 		utils.JSONResponse(w, "Invalid request format", http.StatusBadRequest, r)
 		return
 	}
-	validate := validator.New()
-	if err := validate.Struct(reqBody); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+	ok, er := utils.ValidateInput(reqBody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, r)
 		return
 	}
 
@@ -102,18 +100,24 @@ func (a *AdminServerClient) AdminLogout(w http.ResponseWriter, r *http.Request) 
 // DoctorRegister handles the doctor registration via gRPC
 func (a *AdminServerClient) DoctorRegister(w http.ResponseWriter, req *http.Request) {
 	a.Logger.Info("DoctorRegister: Starting registration process")
-
 	var reqBody struct {
-		Email            string `json:"email"`
-		Password         string `json:"password"`
-		Name             string `json:"name"`
-		Phone            int    `json:"phone"`
-		SpecializationId int    `json:"specializationId"`
+		Email            string `json:"email" validate:"required,email"`
+		Password         string `json:"password" validate:"required,min=8"`
+		Name             string `json:"name" validate:"required"`
+		Phone            int    `json:"phone" validate:"required,numeric"`
+		SpecializationId int    `json:"specializationId" validate:"required"`
 	}
+
 	err := json.NewDecoder(req.Body).Decode(&reqBody)
 	if err != nil {
 		// Skip logging for decoding errors as it's too verbose
 		utils.JSONResponse(w, "failed to decode request", http.StatusBadGateway, req)
+		return
+	}
+
+	ok, er := utils.ValidateInput(reqBody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, req)
 		return
 	}
 
@@ -159,6 +163,12 @@ func (a *AdminServerClient) PatientCreate(w http.ResponseWriter, r *http.Request
 		return
 	}
 
+	ok, er := utils.ValidateInput(reqBody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, r)
+		return
+	}
+
 	// Call the Patient gRPC Create method
 	resp, err := a.AdminClient.AddPatient(context.Background(), &pb.AddPatientRequest{
 		Name:     reqBody.Name,
@@ -187,7 +197,9 @@ func (a *AdminServerClient) PatientCreate(w http.ResponseWriter, r *http.Request
 func (a *AdminServerClient) PatientDelete(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	patientId := vars["ID"]
-
+	if patientId == "" {
+		utils.JSONStandardResponse(w, "fail", "Patient id is require", "", 400, r)
+	}
 	// Call the Patient gRPC Delete method
 	resp, err := a.AdminClient.DeletePatient(context.Background(), &pb.DeletePatientRequest{
 		PatientId: patientId,
@@ -213,6 +225,9 @@ func (a *AdminServerClient) PatientDelete(w http.ResponseWriter, r *http.Request
 func (a *AdminServerClient) DoctorDelete(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	doctorID := vars["ID"]
+	if doctorID == "" {
+		utils.JSONStandardResponse(w, "fail", "Patient id is require", "", 400, r)
+	}
 
 	if doctorID == "" {
 		utils.JSONResponse(w, "Doctor ID is missing", http.StatusBadRequest, r)
@@ -244,6 +259,9 @@ func (a *AdminServerClient) DoctorDelete(w http.ResponseWriter, r *http.Request)
 func (a *AdminServerClient) PatientBlock(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	patientId := vars["ID"]
+	if patientId == "" {
+		utils.JSONStandardResponse(w, "fail", "Patient id is require", "", 400, r)
+	}
 
 	var reqBody struct {
 		Reason string `json:"reason"`
@@ -284,7 +302,6 @@ func (a *AdminServerClient) ListDoctorsHandler(w http.ResponseWriter, req *http.
 		utils.JSONResponse(w, "Failed to list doctors", http.StatusInternalServerError, req)
 		return
 	}
-	fmt.Println("Doctors response:", resp)
 	utils.JSONResponse(w, resp, http.StatusOK, req)
 }
 

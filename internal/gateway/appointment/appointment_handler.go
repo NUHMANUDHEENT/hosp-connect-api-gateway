@@ -19,17 +19,18 @@ func (p *AppointmentServerClient) GetAvailability(w http.ResponseWriter, r *http
 	p.Logger.Info("Received request to get availability")
 
 	var reqbody struct {
-		CategoryID        int       `json:"categoryid"`
-		RequestedDateTime time.Time `json:"requesteddatetime"`
+		CategoryID        int       `json:"categoryid" validate:"required"`
+		RequestedDateTime time.Time `json:"requesteddatetime" validate:"required"`
 	}
 
 	err := json.NewDecoder(r.Body).Decode(&reqbody)
 	if err != nil {
-		p.Logger.WithFields(logrus.Fields{
-			"function": "GetAvailability",
-			"error":    err.Error(),
-		}).Error("Failed to decode request body")
 		utils.JSONStandardResponse(w, "fail", "Failed to bind json data", "", http.StatusBadRequest, r)
+		return
+	}
+	ok, er := utils.ValidateInput(reqbody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, r)
 		return
 	}
 
@@ -64,15 +65,18 @@ func (p *AppointmentServerClient) GetAvailabilityByDoctorId(w http.ResponseWrite
 	p.Logger.Info("Received request to get availability by doctor ID")
 
 	var reqbody struct {
-		DoctorId string `json:"doctorid"`
+		DoctorId string `json:"doctorid" validate:"required"`
 	}
+
 	err := json.NewDecoder(r.Body).Decode(&reqbody)
 	if err != nil {
-		p.Logger.WithFields(logrus.Fields{
-			"function": "GetAvailabilityByDoctorId",
-			"error":    err.Error(),
-		}).Error("Failed to decode request body")
 		utils.JSONStandardResponse(w, "fail", "Failed to bind json data", "", http.StatusBadRequest, r)
+		return
+	}
+
+	ok, er := utils.ValidateInput(reqbody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, r)
 		return
 	}
 
@@ -105,20 +109,23 @@ func (p *AppointmentServerClient) ConfirmPatientAppointment(w http.ResponseWrite
 	p.Logger.Info("Received request to confirm patient appointment")
 
 	var reqbody struct {
-		SpecializationId int       `json:"specializationid"`
-		AppointmentTime  time.Time `json:"appointmenttime"`
-		DoctorId         string    `json:"doctorid"`
-		Type             string    `json:"type"`
+		SpecializationId int       `json:"specializationid" validate:"required"`
+		AppointmentTime  time.Time `json:"appointmenttime" validate:"required"`
+		DoctorId         string    `json:"doctorid" validate:"required"`
+		Type             string    `json:"type" validate:"required"`
 	}
 	err := json.NewDecoder(r.Body).Decode(&reqbody)
 	if err != nil {
-		p.Logger.WithFields(logrus.Fields{
-			"function": "ConfirmPatientAppointment",
-			"error":    err.Error(),
-		}).Error("Failed to decode request body")
 		utils.JSONStandardResponse(w, "fail", "Failed to bind json data", "", http.StatusBadRequest, r)
 		return
 	}
+
+	ok, er := utils.ValidateInput(reqbody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, r)
+		return
+	}
+
 	parsedTime := reqbody.AppointmentTime.UTC()
 
 	claims, err := middleware.ExtractClaimsFromCookie(r, "patient")
@@ -160,19 +167,22 @@ func (p *AppointmentServerClient) ConfirmPatientAppointment(w http.ResponseWrite
 		"response": resp,
 	}).Info("Appointment confirmed successfully")
 	utils.JSONResponse(w, resp, http.StatusOK, r)
+
 }
 func (p *AppointmentServerClient) CancelPatientAppointment(w http.ResponseWriter, r *http.Request) {
 	var reqbody struct {
-		AppointmentId int32 `json:"appointmentId"`
-		Reason        string `json:"reason"`
+		AppointmentId int32  `json:"appointmentId" validate:"required"`
+		Reason        string `json:"reason" validate:"required"`
 	}
 	err := json.NewDecoder(r.Body).Decode(&reqbody)
 	if err != nil {
-		p.Logger.WithFields(logrus.Fields{
-			"function": "CancelAppointment",
-			"error":    err.Error(),
-		}).Error("Failed to decode request body")
 		utils.JSONStandardResponse(w, "fail", "Failed to bind json data", "", http.StatusBadRequest, r)
+		return
+	}
+
+	ok, er := utils.ValidateInput(reqbody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, r)
 		return
 	}
 
@@ -244,25 +254,23 @@ func (d *AppointmentServerClient) CreateRoomForVideoTreatments(w http.ResponseWr
 
 	claims, err := middleware.ExtractClaimsFromCookie(req, "doctor")
 	if err != nil {
-		d.Logger.WithFields(logrus.Fields{
-			"function": "CreateRoomForVideoTreatments",
-			"error":    err.Error(),
-		}).Error("Unauthorized access attempt")
 		utils.JSONResponse(w, "Unauthorized: "+err.Error(), http.StatusUnauthorized, req)
 		return
 	}
 
 	var reqBody struct {
-		PatientId        string `json:"patientid"`
-		SpecializationId int64  `json:"specialization"`
+		PatientId        string `json:"patientid" validate:"required"`
+		SpecializationId int64  `json:"specialization" validate:"required"`
 	}
 	err = json.NewDecoder(req.Body).Decode(&reqBody)
 	if err != nil {
-		d.Logger.WithFields(logrus.Fields{
-			"function": "CreateRoomForVideoTreatments",
-			"error":    err.Error(),
-		}).Error("Failed to decode request body")
 		utils.JSONResponse(w, "Invalid request body", http.StatusBadRequest, req)
+		return
+	}
+
+	ok, er := utils.ValidateInput(reqBody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, req)
 		return
 	}
 
@@ -293,10 +301,6 @@ func (d *AppointmentServerClient) VideoCallRender(w http.ResponseWriter, r *http
 
 	_, err := middleware.ExtractClaimsFromCookie(r, "doctor")
 	if err != nil {
-		d.Logger.WithFields(logrus.Fields{
-			"function": "VideoCallRender",
-			"error":    err.Error(),
-		}).Error("Unauthorized access attempt")
 		utils.JSONResponse(w, "Unauthorized: "+err.Error(), http.StatusUnauthorized, r)
 		return
 	}
@@ -312,10 +316,6 @@ func (d *AppointmentServerClient) Dashboard(w http.ResponseWriter, r *http.Reque
 
 	_, err := middleware.ExtractClaimsFromCookie(r, "admin")
 	if err != nil {
-		d.Logger.WithFields(logrus.Fields{
-			"function": "Dashboard",
-			"error":    err.Error(),
-		}).Error("Unauthorized access attempt")
 		utils.JSONResponse(w, "Unauthorized: "+err.Error(), http.StatusUnauthorized, r)
 		return
 	}
@@ -331,9 +331,6 @@ func (p *AppointmentServerClient) DashboardResponse(w http.ResponseWriter, r *ht
 
 	filterParam := r.URL.Query().Get("filter")
 	if filterParam == "" {
-		p.Logger.WithFields(logrus.Fields{
-			"function": "DashboardResponse",
-		}).Error("Missing filter parameter")
 		utils.JSONResponse(w, "Missing filter parameter", http.StatusBadRequest, r)
 		return
 	}
@@ -352,10 +349,6 @@ func (p *AppointmentServerClient) DashboardResponse(w http.ResponseWriter, r *ht
 
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(resp); err != nil {
-		p.Logger.WithFields(logrus.Fields{
-			"function": "DashboardResponse",
-			"error":    err.Error(),
-		}).Error("Failed to encode response")
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
 		return
 	}
@@ -371,16 +364,18 @@ func (a *AppointmentServerClient) AddDoctorSpecialization(w http.ResponseWriter,
 	a.Logger.Info("Received request to add a new doctor specialization")
 
 	var reqBody struct {
-		Name        string `json:"name"`
-		Description string `json:"description"`
+		Name        string `json:"name" validate:"required"`
+		Description string `json:"description" validate:"required"`
 	}
 	err := json.NewDecoder(req.Body).Decode(&reqBody)
 	if err != nil {
-		a.Logger.WithFields(logrus.Fields{
-			"function": "AddDoctorSpecialization",
-			"error":    err.Error(),
-		}).Error("Failed to decode request body")
 		utils.JSONResponse(w, "Failed to decode request body", http.StatusBadRequest, req)
+		return
+	}
+
+	ok, er := utils.ValidateInput(reqBody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, req)
 		return
 	}
 

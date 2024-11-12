@@ -21,19 +21,15 @@ func (p *PatientServerClient) PatientSignUp(w http.ResponseWriter, req *http.Req
 	p.Logger.Info("Received patient signup request")
 
 	var reqBody struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-		Name     string `json:"name"`
-		Phone    int32  `json:"phone"`
-		Age      int32  `json:"age"`
-		Gender   string `json:"gender"`
+		Email    string `json:"email" validate:"required,email"`
+		Password string `json:"password" validate:"required,min=8"`
+		Name     string `json:"name" validate:"required"`
+		Phone    int32  `json:"phone" validate:"required"`
+		Age      int32  `json:"age" validate:"required"`
+		Gender   string `json:"gender" validate:"required"`
 	}
 	err := json.NewDecoder(req.Body).Decode(&reqBody)
 	if err != nil {
-		p.Logger.WithFields(logrus.Fields{
-			"function": "PatientSignUp",
-			"error":    err.Error(),
-		}).Error("Failed to decode request body")
 		utils.JSONStandardResponse(w, "error", "Invalid request format", "", http.StatusBadRequest, req)
 		return
 	}
@@ -104,8 +100,8 @@ func (p *PatientServerClient) PatientSignIn(w http.ResponseWriter, req *http.Req
 	p.Logger.Info("Received patient sign-in request")
 
 	var reqBody struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
+		Email    string `json:"email" validate:"required,email"`
+		Password string `json:"password" validate:"required, min=8"`
 	}
 	err := json.NewDecoder(req.Body).Decode(&reqBody)
 	if err != nil {
@@ -215,7 +211,15 @@ func (p *PatientServerClient) GetPatientProfile(w http.ResponseWriter, req *http
 func (p *PatientServerClient) UpdatePatientProfile(w http.ResponseWriter, req *http.Request) {
 	p.Logger.Info("Received request to update patient profile")
 
-	var reqBody patient.Patient
+	var reqBody struct {
+		PatientID string `json:"patient_id" validate:"required"`
+		Email     string `json:"email" validate:"required,email"`
+		Name      string `json:"name" validate:"required"`
+		Phone     int    `json:"phone" validate:"required"`
+		Age       int32  `json:"age" validate:"required,min=0,max=120"`
+		Gender    string `json:"gender" validate:"required,oneof=male female other"`
+	}
+
 	claims, err := middleware.ExtractClaimsFromCookie(req, "patient")
 	if err != nil {
 		p.Logger.WithFields(logrus.Fields{
@@ -241,7 +245,7 @@ func (p *PatientServerClient) UpdatePatientProfile(w http.ResponseWriter, req *h
 			PatientId: claims.UserId,
 			Name:      reqBody.Name,
 			Email:     reqBody.Email,
-			Phone:     reqBody.Phone,
+			Phone:     int32(reqBody.Phone),
 			Age:       int32(reqBody.Age),
 			Gender:    reqBody.Gender,
 		},
@@ -268,12 +272,12 @@ func (p *PatientServerClient) AddPrescriptionForPatient(w http.ResponseWriter, r
 	p.Logger.Info("Received request to add prescription for patient")
 
 	var reqBody struct {
-		PatientId    string `json:"patientid"`
+		PatientId    string `json:"patientid" validate:"required"`
 		Prescription []struct {
 			Medication string `json:"medication"`
 			Dosage     string `json:"dosage"`
 			Frequency  string `json:"frequency"`
-		} `json:"prescription"`
+		} `json:"prescription" validate:"required"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&reqBody); err != nil {
@@ -433,7 +437,7 @@ func (d *PatientServerClient) VideoCallRender(w http.ResponseWriter, r *http.Req
 
 func (p *PatientServerClient) PatientChatHandler(w http.ResponseWriter, r *http.Request) {
 	p.Logger.Info("Patient chat connection request received")
-	
+
 	conn, err := di.Upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		p.Logger.WithFields(logrus.Fields{

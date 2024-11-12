@@ -1,7 +1,9 @@
 package config
 
 import (
+	"fmt"
 	"log"
+	"os"
 
 	pbAdmin "github.com/NUHMANUDHEENT/hosp-connect-pb/proto/admin"
 	pbAppointment "github.com/NUHMANUDHEENT/hosp-connect-pb/proto/appointment"
@@ -16,23 +18,27 @@ import (
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/gateway/payment"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/logs"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func GrpcSetUp() *mux.Router {
 
-	userConn, err := grpc.NewClient("localhost:50051", grpc.WithInsecure())
+	userConn, err := grpc.NewClient(os.Getenv("USER_GRPC_SERVER"), grpc.WithInsecure())
 	if err != nil {
-		log.Fatal("Failed to connect to admin service:", err)
+		log.Fatal("Failed to connect to user service:", err)
 	}
-	appointmentConn, err := grpc.NewClient("localhost:50052", grpc.WithInsecure())
+	fmt.Println("users", os.Getenv("USER_GRPC_SERVER"))
+	appointmentConn, err := grpc.NewClient(os.Getenv("APPOINTMENT_GRPC_SERVER"),
+		grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatal("Failed to connect to appointment service:", err)
 	}
-	paymentConn, err := grpc.NewClient("localhost:50054", grpc.WithInsecure())
+
+	paymentConn, err := grpc.NewClient(os.Getenv("PAYMENT_GRPC_SERVER"),
+		grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatal("Failed to connect to payment service:", err)
 	}
-
 
 	logger := logs.NewLogger()
 	router := mux.NewRouter()

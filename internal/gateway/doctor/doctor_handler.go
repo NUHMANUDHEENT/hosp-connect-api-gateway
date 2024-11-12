@@ -19,17 +19,19 @@ func (d *DoctorServerClient) DoctorSignIn(w http.ResponseWriter, req *http.Reque
 	d.Logger.Info("Received sign-in request")
 
 	var reqBody struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
+		Email    string `json:"email" validate:"required,email"`
+		Password string `json:"password" validate:"required,min=8"`
 	}
 
 	err := json.NewDecoder(req.Body).Decode(&reqBody)
 	if err != nil {
-		d.Logger.WithFields(logrus.Fields{
-			"function": "DoctorSignIn",
-			"error":    err.Error(),
-		}).Error("Failed to decode request body")
 		utils.JSONResponse(w, "Failed to decode request", http.StatusBadRequest, req)
+		return
+	}
+
+	ok, er := utils.ValidateInput(reqBody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, req)
 		return
 	}
 
@@ -56,11 +58,6 @@ func (d *DoctorServerClient) DoctorSignIn(w http.ResponseWriter, req *http.Reque
 	if resp.Status == "success" {
 		jwtToken, err := middleware.CreateJWTToken(resp.DoctorId, role)
 		if err != nil {
-			d.Logger.WithFields(logrus.Fields{
-				"function": "DoctorSignIn",
-				"doctorId": resp.DoctorId,
-				"error":    err.Error(),
-			}).Error("Failed to create JWT token")
 			utils.JSONResponse(w, "Failed to create JWT token", http.StatusInternalServerError, req)
 			return
 		}
@@ -127,42 +124,34 @@ func (d *DoctorServerClient) GetDoctorProfile(w http.ResponseWriter, req *http.R
 		"doctorId": doctorId,
 		"status":   resp.Status,
 	}).Info("Successfully fetched profile for doctor")
-	// Return profile information
+
 	utils.JSONResponse(w, resp, http.StatusOK, req)
-	d.Logger.Info("Doctor profile response sent")
 }
 func (d *DoctorServerClient) UpdateDoctorProfile(w http.ResponseWriter, req *http.Request) {
 	d.Logger.Info("Received request to update doctor profile")
 
 	claims, err := middleware.ExtractClaimsFromCookie(req, "doctor")
 	if err != nil {
-		d.Logger.WithFields(logrus.Fields{
-			"function": "UpdateDoctorProfile",
-			"error":    err.Error(),
-		}).Error("Unauthorized access")
 		utils.JSONResponse(w, "Unauthorized: "+err.Error(), http.StatusUnauthorized, req)
 		return
 	}
 
 	doctorId := claims.UserId
-	d.Logger.WithFields(logrus.Fields{
-		"function":  "UpdateDoctorProfile",
-		"doctorId":  doctorId,
-	}).Info("Parsing request body for profile update")
 
-	// Parse request body to update profile
 	var reqBody struct {
-		Name             string `json:"name"`
-		SpecializationId int32  `json:"specialization"`
-		Phone            int    `json:"phone"`
+		Name             string `json:"name" validate:"required"`
+		SpecializationId int32  `json:"specialization" validate:"required"`
+		Phone            int    `json:"phone" validate:"required"`
 	}
 	err = json.NewDecoder(req.Body).Decode(&reqBody)
 	if err != nil {
-		d.Logger.WithFields(logrus.Fields{
-			"function": "UpdateDoctorProfile",
-			"error":    err.Error(),
-		}).Error("Invalid request body")
 		utils.JSONResponse(w, "Invalid request body", http.StatusBadRequest, req)
+		return
+	}
+
+	ok, er := utils.ValidateInput(reqBody)
+	if !ok {
+		utils.JSONStandardResponse(w, "Fail", er, "", http.StatusBadRequest, req)
 		return
 	}
 
@@ -180,21 +169,20 @@ func (d *DoctorServerClient) UpdateDoctorProfile(w http.ResponseWriter, req *htt
 	resp, err := d.DoctorClient.UpdateProfile(context.Background(), updateReq)
 	if err != nil || resp.Status != "success" {
 		d.Logger.WithFields(logrus.Fields{
-			"function":  "UpdateDoctorProfile",
-			"doctorId":  doctorId,
-			"error":     err.Error(),
+			"function": "UpdateDoctorProfile",
+			"doctorId": doctorId,
+			"error":    err.Error(),
 		}).Error("Failed to update profile")
 		utils.JSONResponse(w, "Failed to update profile", http.StatusInternalServerError, req)
 		return
 	}
 
 	d.Logger.WithFields(logrus.Fields{
-		"function":  "UpdateDoctorProfile",
-		"doctorId":  doctorId,
-		"status":    resp.Status,
+		"function": "UpdateDoctorProfile",
+		"doctorId": doctorId,
+		"status":   resp.Status,
 	}).Info("Successfully updated doctor profile")
 
-	// Return success response
 	utils.JSONResponse(w, resp, http.StatusOK, req)
 }
 
@@ -229,33 +217,23 @@ func (d *DoctorServerClient) DoctorStoreAccessToken(email string, token *oauth2.
 func (d *DoctorServerClient) ConfirmScheduleHandler(w http.ResponseWriter, req *http.Request) {
 	d.Logger.Info("Received request to confirm schedule")
 
-	// Extract the doctor claims to verify authentication
 	claims, err := middleware.ExtractClaimsFromCookie(req, "doctor")
 	if err != nil {
-		d.Logger.WithFields(logrus.Fields{
-			"function": "ConfirmScheduleHandler",
-			"error":    err.Error(),
-		}).Error("Unauthorized access")
 		utils.JSONResponse(w, "Unauthorized: "+err.Error(), http.StatusUnauthorized, req)
 		return
 	}
 
-	doctorID := claims.UserId // Assuming claims contain the doctor ID
+	doctorID := claims.UserId 
 	if doctorID == "" {
-		d.Logger.WithFields(logrus.Fields{
-			"function": "ConfirmScheduleHandler",
-			"error":    "Missing doctor ID",
-		}).Error("Missing doctor ID")
 		utils.JSONResponse(w, "Missing doctor ID", http.StatusBadRequest, req)
 		return
 	}
 
 	d.Logger.WithFields(logrus.Fields{
-		"function":  "ConfirmScheduleHandler",
-		"doctorId":  doctorID,
+		"function": "ConfirmScheduleHandler",
+		"doctorId": doctorID,
 	}).Info("Making gRPC call to confirm schedule")
 
-	// Make gRPC call to confirm the doctor's schedule
 	grpcReq := &doctor.ConfirmScheduleRequest{
 		DoctorId: doctorID,
 	}
@@ -273,17 +251,17 @@ func (d *DoctorServerClient) ConfirmScheduleHandler(w http.ResponseWriter, req *
 
 	if grpcResp.Status != "success" {
 		d.Logger.WithFields(logrus.Fields{
-			"function":  "ConfirmScheduleHandler",
-			"doctorId":  doctorID,
-			"error":     grpcResp.Error,
+			"function": "ConfirmScheduleHandler",
+			"doctorId": doctorID,
+			"error":    grpcResp.Error,
 		}).Error("Failed to confirm schedule: " + grpcResp.Error)
 		utils.JSONResponse(w, "Failed to confirm schedule: "+grpcResp.Error, http.StatusInternalServerError, req)
 		return
 	}
 
 	d.Logger.WithFields(logrus.Fields{
-		"function":  "ConfirmScheduleHandler",
-		"doctorId":  doctorID,
+		"function": "ConfirmScheduleHandler",
+		"doctorId": doctorID,
 	}).Info("Schedule confirmed successfully")
 
 	utils.JSONResponse(w, grpcResp.Schedules, http.StatusOK, req)

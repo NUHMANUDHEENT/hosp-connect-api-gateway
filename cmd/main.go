@@ -12,7 +12,7 @@ import (
 
 func main() {
 	config.LoadEnv()
-	port := os.Getenv("PORT")
+	port := os.Getenv("SERVER_PORT")
 	router := config.GrpcSetUp()
 	corsHandler := di.CORS(router)
 	http.Handle("/metrics", promhttp.Handler())
