@@ -59,7 +59,6 @@ func (a *AdminServerClient) AdminSignIn(w http.ResponseWriter, r *http.Request) 
 		utils.JSONResponse(w, "GRPC error", http.StatusInternalServerError, r)
 		return
 	}
-	
 
 	if resp.Status == "success" {
 		jwtToken, err := middleware.CreateJWTToken(reqBody.Email, role)
