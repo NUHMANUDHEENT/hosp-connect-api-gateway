@@ -21,7 +21,6 @@ WORKDIR /app
 
 COPY --from=builder /app/api_gateway .
 
-COPY .env .
 
 EXPOSE 8080
 
