@@ -15,14 +15,12 @@ RUN go build -o api_gateway ./cmd
 
 FROM alpine:3.18
 
-
 # RUN apk --no-cache add ca-certificates
 
 WORKDIR /app
 
 COPY --from=builder /app/api_gateway .
-
-COPY .env .
+COPY --from=builder /app/.env .
 
 EXPOSE 8080
 
