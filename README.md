@@ -59,5 +59,5 @@ The gateway ensures secure, scalable, and efficient routing of traffic across al
 ### **Clone the Repository**
 
 ```bash
-git clone https://github.com/your-username/api-gateway.git
+git clone [https://github.com/your-username/api-gateway.git](https://github.com/NUHMANUDHEENT/hosp-connect-api-gateway.git)
 cd api-gateway
