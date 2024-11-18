@@ -26,3 +26,5 @@ jobs:
       run: |
         docker tag hosp-connect-api-gateway:latest ${{ secrets.DOCKER_USERNAME }}/hosp-connect-api-gateway:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/hosp-connect-api-gateway:latest
+
+        
