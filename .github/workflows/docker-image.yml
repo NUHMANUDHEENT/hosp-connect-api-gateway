@@ -17,6 +17,16 @@ jobs:
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+    - name: Create .env file
+      run: |
+        echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> .env
+        echo "CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}" >> .env
+        echo "MONITORING_ENABLED=true" >> .env
+        echo "SERVER_PORT=:8080" >> .env
+        echo "USER_GRPC_SERVER=hosp-connect-user-svc:50051" >> .env
+        echo "APPT_GRPC_SERVER=hosp-connect-appt-svc:50052" >> .env
+        echo "PAYMENT_GRPC_SERVER=hosp-connect-payment-svc:50053" >> .env
+
     # Build the Docker image
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag hosp-connect-api-gateway:latest
