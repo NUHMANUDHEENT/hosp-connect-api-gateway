@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: nuhman9260/hosp-connect-appt-svc:latest
+          image: nuhman9260/hosp-connect-api-gateway:latest
           ports:
             - containerPort: 8080
           envFrom:
