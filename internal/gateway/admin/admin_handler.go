@@ -44,7 +44,6 @@ func (a *AdminServerClient) AdminSignIn(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	
 	// Call the Admin gRPC SignIn method
 	resp, err := a.AdminClient.SignIn(context.Background(), &pb.SignInRequest{
 		Email:    reqBody.Email,
@@ -354,14 +353,14 @@ func sendMessageToPatients(msg di.Message) {
 		err := conn.WriteMessage(websocket.TextMessage, messageJSON)
 		if err != nil {
 			log.Println("Error sending message to patient:", err)
-			conn.Close()                        // Close the connection on error
-			delete(di.PatientConnections, conn) // Clean up inactive connections
+			conn.Close()
+			delete(di.PatientConnections, conn)
 		}
 	}
 }
 
 // AdminChatRender renders the customer care chat HTML page
 func (p *AdminServerClient) AdminChatRender(w http.ResponseWriter, r *http.Request) {
-	chatPagePath := filepath.Join("..", "templates", "customer_care_chat.html")
-	http.ServeFile(w, r, chatPagePath) // Serve the chat HTML file
+	chatPagePath := filepath.Join( "templates", "customer_care_chat.html")
+	http.ServeFile(w, r, chatPagePath)
 }
