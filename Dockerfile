@@ -18,9 +18,9 @@ WORKDIR /app
 COPY --from=builder /app/api_gateway .
 
 COPY --from=builder /app/templates ./templates
+
 COPY .env ./
 
 EXPOSE 8080
-
 
 CMD ["./api_gateway"]

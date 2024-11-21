@@ -485,6 +485,6 @@ func sendMessageToCustomerCare(msg di.Message) {
 	}
 }
 func (p *PatientServerClient) PatientChatRender(w http.ResponseWriter, r *http.Request) {
-	paymentPagePath := filepath.Join("..", "templates", "user_chat.html")
+	paymentPagePath := filepath.Join("templates", "user_chat.html")
 	http.ServeFile(w, r, paymentPagePath)
 }

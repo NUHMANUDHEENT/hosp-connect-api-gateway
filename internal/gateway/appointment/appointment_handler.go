@@ -320,7 +320,7 @@ func (d *AppointmentServerClient) Dashboard(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	dashboardHTML := filepath.Join("..", "templates", "dashboard.html")
+	dashboardHTML := filepath.Join("templates", "dashboard.html")
 	http.ServeFile(w, r, dashboardHTML)
 	d.Logger.Info("Dashboard page served successfully")
 }
