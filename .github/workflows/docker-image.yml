@@ -58,5 +58,5 @@ jobs:
     # Step 8: Update Kubernetes Deployment
     - name: Update Kubernetes Deployment
       run: |
-        kubectl set image deployment/api-gateway-deployment api-gateway-container=${{ secrets.DOCKER_USERNAME }}/hosp-connect-api-gateway:latest
+        kubectl set image deployment/api-gateway-deployment api-gateway=${{ secrets.DOCKER_USERNAME }}/hosp-connect-api-gateway:latest
         kubectl rollout status deployment/api-gateway-deployment
