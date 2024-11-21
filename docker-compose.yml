@@ -1,0 +1,127 @@
+version: '3.3'
+
+services:
+  # user-postgres:
+  #   image: postgres
+  #   container_name: user-postgres
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=Nuhman@456
+  #     - POSTGRES_DB=user_db
+  #   ports:
+  #     - "5436:5432" 
+
+  # appt-postgres:
+  #   image: postgres
+  #   container_name: appt-postgres
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=Nuhman@456
+  #     - POSTGRES_DB=appointment_db
+  #   ports:
+  #     - "5433:5432" 
+
+  # payment-postgres:
+  #   image: postgres
+  #   container_name: payment-postgres
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=Nuhman@456
+  #     - POSTGRES_DB=payment_db
+  #   ports:
+  #     - "5434:5432" 
+
+  # notification-postgres:
+  #   image: postgres
+  #   container_name: postgres
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=Nuhman@456
+  #     - POSTGRES_DB=notification_db
+  #   ports: 
+  #     - "5435:5432"  
+
+# Api gateway
+  hosp-connect-api-gateway:
+    image: hosp-connect-api-gateway 
+    container_name: hosp-connect-api-gateway
+    ports:
+      - "8080:8080"    
+    # environment:
+    #   - CLIENT_ID=265281529609-md3jebekph6qq6ajh50raufun0tt2rp3.apps.googleusercontent.com
+    #   - CLIENT_SECRET=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
+    #   - MONITORING_ENABLED=true
+    #   - SERVER_PORT=:8080
+    #   - USER_GRPC_SERVER=hosp-connect-user-svc:50051
+    #   - APPT_GRPC_SERVER=hosp-connect-appt-svc:50052
+    #   - PAYMENT_GRPC_SERVER=hosp-connect-payment-svc:50053 
+
+# user service 
+  # hosp-connect-user-svc:
+  #   image: hosp-connect-user-svc  
+  #   container_name: hosp-connect-user-svc
+  #   ports:
+  #     - "50051:50051"
+  #     - "2112:2112"  
+  #   environment:
+  #     - DATABASE_URL="postgres://postgres:Nuhman%40456@postgres:5436/user_db?sslmode=disable"
+  #     - USER_PORT=":50051"
+  #     - APPPASSWORD="dplm lqjv pdql epig"
+  #     - APPEMAIL="nuhmotp@gmail.com"
+  #     - ADMIN_EMAIL="nuhmanudheen@gmail.com"
+  #     - ADMIN_PASSWORD="nuhman@123"
+  #   depends_on:
+  #     - user-postgres
+
+#appointment service      
+  # hosp-connect-appt-svc:
+  #   image: hosp-connect-appt-svc
+  #   container_name: hosp-connect-appt-svc
+  #   ports:
+  #     - "50052:50052"
+  #   environment:
+  #     - APPOINTMENT_PORT=":50052"
+  #     - DATABASE_URL="postgres://postgres:Nuhman%40456@localhost:5433/appointment_db?sslmode=disable"
+  #     - USER_GRPC_SERVER="hosp-connect-user-svc:50051"
+  #     - PAYMENT_GRPC_SERVER="hosp-connect-payment-svc:50053"
+  #   depends_on:
+  #     - appt-postgres
+
+# Payment service
+  # hosp-connect-payment-svc:
+  #   image: hosp-connect-payment-svc
+  #   container_name: hosp-connect-payment-svc
+  #   ports:
+  #     - "50053:50053"
+  #   environment:
+  #     - RAZORPAY_KEY_ID="rzp_test_L5qNNRXVbhmnhr"
+  #     - RAZORPAY_KEY_SECRET="ciivOcvarUcV6uSV7WniDwfj"
+  #     - PAYMENT_PORT=":50053"
+  #     - DATABASE_URL="postgres://postgres:Nuhman%40456@localhost:5434/payment_db?sslmode=disable"
+  #     - USER_GRPC_SERVER="hosp-connect-user-svc:50051"
+  #     - APPT_GRPC_SERVER="hosp-connect-appt-svc:50052"
+  #   depends_on:
+  #     - payment-postgres
+
+#notification service
+  # hosp-connect-notification-svc:
+  #   image: hosp-connect-notification-svc
+  #   container_name: hosp-connect-notification-svc
+  #   environment:
+  #     - DATABASE_URL="postgres://postgres:Nuhman%40456@localhost:5435/notification_db?sslmode=disable"
+  #     - APPPASSWORD="dplm lqjv pdql epig"
+  #     - APPEMAIL="nuhmotp@gmail.com"
+  #     - KAFKA_BROKER="localhost:9092"
+  #   depends_on:
+  #     - notification-postgres
+
+  # prometheus:
+  #   image: prom/prometheus 
+  #   container_name: prometheus
+  #   volumes:
+  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  #   ports:
+  #     - "9090:9090"
+  #   depends_on:
+  #     - api-gateway
+

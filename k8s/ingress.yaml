@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-gateway-ingress
+  namespace: default  # Ensure this matches the namespace where your API Gateway service is located
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod  # Use the ClusterIssuer for Let's Encrypt
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hilofy.online  # Your domain name
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api-gateway-service # Your service name
+            port:
+              number: 8080  # The port exposed by your service
+  tls:
+  - hosts:
+    - hilofy.online  # Your domain name
+    secretName: hilofy-online-tls  # This secret will store the TLS certificate
