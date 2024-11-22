@@ -158,7 +158,7 @@ func (p *AppointmentServerClient) ConfirmPatientAppointment(w http.ResponseWrite
 			"function": "ConfirmPatientAppointment",
 			"error":    err.Error(),
 		}).Error("Failed to call confirm appointment service")
-		utils.JSONStandardResponse(w, "fail", "Failed to call service", "", http.StatusInternalServerError, r)
+		utils.JSONStandardResponse(w, "fail", "Failed to call appointment service", "", http.StatusInternalServerError, r)
 		return
 	}
 

@@ -28,7 +28,7 @@ func GrpcSetUp() *mux.Router {
 		log.Fatal("Failed to connect to user service:", err)
 	}
 	fmt.Println("users", os.Getenv("USER_GRPC_SERVER"))
-	appointmentConn, err := grpc.NewClient(os.Getenv("APPOINTMENT_GRPC_SERVER"),
+	appointmentConn, err := grpc.NewClient(os.Getenv("APPT_GRPC_SERVER"),
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatal("Failed to connect to appointment service:", err)
