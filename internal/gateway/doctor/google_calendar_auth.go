@@ -28,7 +28,7 @@ func init() {
 	googleOauthConfig = &oauth2.Config{
 		ClientID:     os.Getenv("CLIENT_ID"),
 		ClientSecret: os.Getenv("CLIENT_SECRET"),
-		RedirectURL:  "http://localhost:8080/api/v1/doctor/auth/callback",
+		RedirectURL:  "https://hilofy.online/api/v1/doctor/auth/callback",
 		Scopes:       []string{calendar.CalendarScope, "https://www.googleapis.com/auth/userinfo.email"},
 		Endpoint:     google.Endpoint,
 	}
