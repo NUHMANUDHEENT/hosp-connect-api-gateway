@@ -112,7 +112,7 @@ func (p *AppointmentServerClient) ConfirmPatientAppointment(w http.ResponseWrite
 		SpecializationId int       `json:"specializationid" validate:"required"`
 		AppointmentTime  time.Time `json:"appointmenttime" validate:"required"`
 		DoctorId         string    `json:"doctorid" validate:"required"`
-		Type             string    `json:"type" validate:"required"`
+		Type             string    `json:"type"`
 	}
 	err := json.NewDecoder(r.Body).Decode(&reqbody)
 	if err != nil {
