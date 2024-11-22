@@ -23,10 +23,11 @@ jobs:
         echo "CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}" >> .env
         echo "MONITORING_ENABLED=true" >> .env
         echo "SERVER_PORT=:8080" >> .env
-        echo "USER_GRPC_SERVER=hosp-connect-user-svc:50051" >> .env
-        echo "APPT_GRPC_SERVER=hosp-connect-appt-svc:50052" >> .env
-        echo "PAYMENT_GRPC_SERVER=hosp-connect-payment-svc:50053" >> .env
-
+        echo "USER_GRPC_SERVER=${{ secrets.USER_GRPC_SERVER }}" >> .env
+        echo "APPT_GRPC_SERVER=${{ secrets.APPT_GRPC_SERVER }}" >> .env
+        echo "PAYMENT_GRPC_SERVER=${{ secrets.PAYMENT_GRPC_SERVER }}" >> .env
+        echo "DIALOG_FLOW_CREDENTIALS_JSON=${{ secrets.DIALOG_FLOW_CREDENTIALS_JSON }}" >> .env
+        
     # Step 4: Build the Docker Image
     - name: Build Docker Image
       run: docker build . --file Dockerfile --tag hosp-connect-api-gateway:latest
