@@ -139,9 +139,9 @@ func (d *DoctorServerClient) UpdateDoctorProfile(w http.ResponseWriter, req *htt
 	doctorId := claims.UserId
 
 	var reqBody struct {
-		Name             string `json:"name" validate:"required"`
-		SpecializationId int32  `json:"specialization" validate:"required"`
-		Phone            int    `json:"phone" validate:"required"`
+		Name             string `json:"name" `
+		SpecializationId int32  `json:"specialization"`
+		Phone            int    `json:"phone"`
 	}
 	err = json.NewDecoder(req.Body).Decode(&reqBody)
 	if err != nil {
