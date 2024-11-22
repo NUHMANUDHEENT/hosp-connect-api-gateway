@@ -469,3 +469,14 @@
 {"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = dns: A record lookup error: lookup user-service on 127.0.0.53:53: server misbehaving","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T10:14:28+05:30"}
 {"level":"info","msg":"Received sign-in request","time":"2024-11-11T10:14:29+05:30"}
 {"email":"nuhmanudheent@gmail.com","error":"rpc error: code = Unavailable desc = dns: A record lookup error: lookup user-service on 127.0.0.53:53: server misbehaving","function":"DoctorSignIn","level":"error","msg":"gRPC error during doctor sign-in","time":"2024-11-11T10:14:29+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-22T01:35:09+05:30"}
+{"email":"nuhmanudheen3@gmail.com","error":"rpc error: code = Unavailable desc = dns: A record lookup error: lookup hosp-connect-user-svc on 127.0.0.53:53: server misbehaving","function":"PatientSignUp","level":"error","msg":"gRPC error during patient signup","time":"2024-11-22T01:35:09+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-22T01:35:54+05:30"}
+{"function":"PatientSignUp","level":"info","msg":"Patient signed up successfully","patientId":"","status":"fail","time":"2024-11-22T01:35:59+05:30"}
+{"level":"info","msg":"Signup response sent","time":"2024-11-22T01:35:59+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-22T01:37:38+05:30"}
+{"function":"PatientSignUp","level":"info","msg":"Patient signed up successfully","patientId":"","status":"fail","time":"2024-11-22T01:37:38+05:30"}
+{"level":"info","msg":"Signup response sent","time":"2024-11-22T01:37:38+05:30"}
+{"level":"info","msg":"Received patient signup request","time":"2024-11-22T01:37:42+05:30"}
+{"function":"PatientSignUp","level":"info","msg":"Patient signed up successfully","patientId":"","status":"fail","time":"2024-11-22T01:37:47+05:30"}
+{"level":"info","msg":"Signup response sent","time":"2024-11-22T01:37:47+05:30"}

@@ -109,7 +109,7 @@ async function fetchDashboardData() {
     
     try {
         // Make a fetch request with the filter value as a query parameter
-        const response = await fetch(`http://localhost:8080/api/v1/admin/dashboard/fetch?filter=${filterValue}`);
+        const response = await fetch(`https://hilofy.online/api/v1/admin/dashboard/fetch?filter=${filterValue}`);
         const data = await response.json();
 
         // Calculate total revenue as totalAppointments * 200
