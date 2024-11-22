@@ -133,7 +133,7 @@
 
             isLeft = !isLeft;
 
-            fetch('http://localhost:8080/api/v1/patient/help-desk/callback', {
+            fetch('https://hilofy.online/api/v1/patient/help-desk/callback', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -148,7 +148,7 @@
 
                     if (reply.toLowerCase().includes('connecting to customer care')) {
                         alert('You are being redirected to customer care...');
-                        window.location.href = 'http://localhost:8080/api/v1/patient/customer-care';  // Redirect to real-time chat page
+                        window.location.href = 'https://hilofy.online/api/v1/patient/customer-care';  // Redirect to real-time chat page
                         return;
                     }
                 })
