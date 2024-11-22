@@ -17,6 +17,7 @@ import (
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/gateway/patient"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/internal/gateway/payment"
 	"github.com/nuhmanudheent/hosp-connect-api-gateway/logs"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -42,6 +43,7 @@ func GrpcSetUp() *mux.Router {
 
 	logger := logs.NewLogger()
 	router := mux.NewRouter()
+	router.Handle("/metrics", promhttp.Handler())
 	adminClient := admin.NewAdminClient(pbAdmin.NewAdminServiceClient(userConn), logger)
 	doctorClient := doctor.NewDoctorClient(pbDoctor.NewDoctorServiceClient(userConn), logger)
 	patientClient := patient.NewPatientClient(pbPatient.NewPatientServiceClient(userConn), logger)
