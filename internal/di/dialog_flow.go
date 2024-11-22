@@ -35,6 +35,7 @@ func GetAccessToken() (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to get token: %v", err)
 	}
+	log.Println("token : ", token)
 
 	cachedToken = token.AccessToken
 	tokenExpiryTime = time.Now().Add(time.Hour)
@@ -42,7 +43,7 @@ func GetAccessToken() (string, error) {
 	return cachedToken, nil
 }
 func HelpDeskRender(w http.ResponseWriter, r *http.Request) {
-	paymentPagePath := filepath.Join( "templates", "help_desk.html")
+	paymentPagePath := filepath.Join("templates", "help_desk.html")
 	http.ServeFile(w, r, paymentPagePath)
 }
 
