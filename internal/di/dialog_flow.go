@@ -102,6 +102,7 @@ func HelpDeskHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Error getting fulfillment text", http.StatusInternalServerError)
 		return
 	}
+	log.Println("fulfillment text : ", fulfillmentText)
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(map[string]string{
 		"reply": fulfillmentText,
