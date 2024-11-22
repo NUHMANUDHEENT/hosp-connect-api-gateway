@@ -36,27 +36,3 @@ jobs:
       run: |
         docker tag hosp-connect-api-gateway:latest ${{ secrets.DOCKER_USERNAME }}/hosp-connect-api-gateway:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/hosp-connect-api-gateway:latest
-
-    # Step 6: Set up kubectl
-    - name: Install kubectl
-      run: |
-        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-        chmod +x kubectl
-        sudo mv kubectl /usr/local/bin/
-
-    # Step 7: Configure Kubernetes Context for DigitalOcean
-    - name: Set up Kubernetes context
-      env:
-        DO_PAT: ${{ secrets.DO_PAT }}  # Your DigitalOcean Personal Access Token
-      run: |
-        curl -sL https://github.com/digitalocean/doctl/releases/download/v1.98.0/doctl-1.98.0-linux-amd64.tar.gz | tar -xzv
-        sudo mv doctl /usr/local/bin/
-        doctl auth init -t $DO_PAT
-        doctl kubernetes cluster kubeconfig save k8s-1-31-1-do-4-lon1-1731914835868
-
-
-    # Step 8: Update Kubernetes Deployment
-    - name: Update Kubernetes Deployment
-      run: |
-        kubectl set image deployment/api-gateway-deployment api-gateway=${{ secrets.DOCKER_USERNAME }}/hosp-connect-api-gateway:latest
-        kubectl rollout status deployment/api-gateway-deployment
