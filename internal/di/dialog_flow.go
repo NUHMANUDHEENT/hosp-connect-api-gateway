@@ -24,14 +24,8 @@ func GetAccessToken() (string, error) {
 	if cachedToken != "" && tokenExpiryTime.After(currentTime) {
 		return cachedToken, nil
 	}
-	// Load the Service Account credentials file
-	data, err := os.ReadFile("/home/nuhmanudheen-t/Broto/2ndProject/HospitalConnect/docto-sheduler-1ebb4fc933f8.json")
-	if err != nil {
-		return "", fmt.Errorf("failed to read service account file: %v", err)
-	}
 
-	// Parse the credentials file
-	creds, err := google.CredentialsFromJSON(context.Background(), data, "https://www.googleapis.com/auth/cloud-platform")
+	creds, err := google.CredentialsFromJSON(context.Background(), []byte(os.Getenv("DIALOG_FLOW_CREDENTIALS_JSON")), "https://www.googleapis.com/auth/cloud-platform")
 	if err != nil {
 		return "", fmt.Errorf("failed to parse credentials: %v", err)
 	}
