@@ -76,17 +76,17 @@
     // Function to initiate the Razorpay payment with the provided orderId
     function initiatePayment(orderId) {
       var options = {
-        key: 'rzp_test_L5qNNRXVbhmnhr', // Your test key from Razorpay Dashboard
-        amount: 10000, // Amount to be paid in paise (10000 paise = 100 INR)
+        key: 'rzp_test_L5qNNRXVbhmnhr', 
+        amount: 10000, 
         currency: 'INR',
         name: 'HospConnect',
         description: 'Payment for Appointment',
-        order_id: orderId, // Order ID from Razorpay backend
+        order_id: orderId, 
         handler: function (response) {
-          console.log('Razorpay response:', response);  // Log response for debugging
+          console.log('Razorpay response:', response); 
 
           alert('Payment successful! Order ID: ' + response.razorpay_order_id);
-          window.location.href = "/payment-success"; // Redirect to success page
+          window.location.href = "/payment-success"; 
         },
         prefill: {
           name: 'Customer Name',
@@ -94,11 +94,11 @@
           contact: '9876543210'
         },
         theme: {
-          color: '#4CFE09' // Customize Razorpay theme color
+          color: '#4CFE09'
         }
       };
 
-      // Open Razorpay payment modal
+
       var rzp = new Razorpay(options);
       rzp.open();
     }
