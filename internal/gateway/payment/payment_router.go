@@ -20,6 +20,6 @@ func NewPaymentClient(paymentClient payment.PaymentServiceClient, logger *logrus
 }
 func RegisterPaymentRouters(router *mux.Router, paymentClient *PaymentServerClient) {
 	privateRouter := router.PathPrefix("/api/v1/payment").Subrouter()
-	privateRouter.HandleFunc("", paymentClient.LoadPaymentPage).Methods("GET")
+	privateRouter.HandleFunc("/{orderId}", paymentClient.LoadPaymentPage).Methods("GET")
 	privateRouter.HandleFunc("/callback", paymentClient.PaymentCallBack)
 }
