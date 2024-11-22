@@ -305,7 +305,7 @@ func (d *AppointmentServerClient) VideoCallRender(w http.ResponseWriter, r *http
 		return
 	}
 
-	videocallhtml := filepath.Join("..", "templates", "video_call_jitsi.html")
+	videocallhtml := filepath.Join("templates", "video_call_jitsi.html")
 	http.ServeFile(w, r, videocallhtml)
 	d.Logger.Info("Video call page served successfully")
 }
