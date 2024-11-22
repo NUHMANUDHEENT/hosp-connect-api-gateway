@@ -47,7 +47,7 @@ type RazorpayPaymentEntity struct {
 
 // LoadPaymentPage serves the payment page to the client
 func (p *PaymentServerClient) LoadPaymentPage(w http.ResponseWriter, r *http.Request) {
-	paymentPagePath := filepath.Join("..", "templates", "payment.html")
+	paymentPagePath := filepath.Join("templates", "payment.html")
 	fmt.Println("hiiiii")
 	http.ServeFile(w, r, paymentPagePath)
 }
@@ -105,5 +105,5 @@ func (p *PaymentServerClient) PaymentCallBack(w http.ResponseWriter, r *http.Req
 		log.Println("Failed to write response", err)
 		return
 	}
-	
+
 }

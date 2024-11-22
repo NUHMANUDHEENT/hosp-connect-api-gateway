@@ -430,7 +430,7 @@ func (p *PatientServerClient) GetPrescriptionsForDoctors(w http.ResponseWriter, 
 
 func (d *PatientServerClient) VideoCallRender(w http.ResponseWriter, r *http.Request) {
 	d.Logger.Info("Serving video call HTML page")
-	videocallhtml := filepath.Join("..", "templates", "video_call_jitsi.html")
+	videocallhtml := filepath.Join("templates", "video_call_jitsi.html")
 	http.ServeFile(w, r, videocallhtml)
 	d.Logger.Info("Video call HTML page served successfully")
 }
