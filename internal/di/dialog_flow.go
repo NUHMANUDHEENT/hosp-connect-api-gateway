@@ -26,17 +26,17 @@ func GetAccessToken() (string, error) {
 		return cachedToken, nil
 	}
 
-	// Path to the JSON file
-	filePath := "./docto-sheduler-1ebb4fc933f8.json" // Adjust this path based on your root directory setup
+	// // Path to the JSON file
+	// filePath := "./docto-sheduler-1ebb4fc933f8.json" // Adjust this path based on your root directory setup
 
-	// Read the file contents
-	jsonData, err := os.ReadFile(filePath)
-	if err != nil {
-		return "", fmt.Errorf("failed to read credentials file: %v", err)
-	}
+	// // Read the file contents
+	// jsonData, err := os.ReadFile(filePath)
+	// if err != nil {
+	// 	return "", fmt.Errorf("failed to read credentials file: %v", err)
+	// }
 
 	// Parse credentials and get the token
-	creds, err := google.CredentialsFromJSON(context.Background(), jsonData, "https://www.googleapis.com/auth/cloud-platform")
+	creds, err := google.CredentialsFromJSON(context.Background(), []byte(os.Getenv("DIALOG_FLOW_CREDENTIALS_JSON")), "https://www.googleapis.com/auth/cloud-platform")
 	if err != nil {
 		return "", fmt.Errorf("failed to parse credentials: %v", err)
 	}
