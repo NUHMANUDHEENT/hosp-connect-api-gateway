@@ -130,7 +130,7 @@
         const status = document.getElementById('status');
     
         // Set up WebSocket connection for patient
-        const ws = new WebSocket('ws://hilofy.online/api/v1/patient/ws');
+        const ws = new WebSocket('wss://hilofy.online/api/v1/patient/ws');
     
         ws.onopen = () => {
             status.innerText = 'Customer is Online';
