@@ -125,6 +125,7 @@
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
 
+        
         const ws = new WebSocket('wss://hilofy.online/api/v1/admin/ws');
 
         ws.onmessage = (event) => {
