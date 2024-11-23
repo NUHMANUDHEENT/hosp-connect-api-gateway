@@ -107,3 +107,26 @@ func (p *PaymentServerClient) PaymentCallBack(w http.ResponseWriter, r *http.Req
 	}
 
 }
+
+type PaymentSuccessResponse struct {
+	Message    string `json:"message"`
+	StatusCode int    `json:"status_code"`
+	Status     string `json:"status"`
+}
+
+func (p *PaymentServerClient) PaymentSucces(w http.ResponseWriter, r *http.Request) {
+	response := PaymentSuccessResponse{
+		Message:    "Payment processed successfully!",
+		StatusCode: http.StatusOK,
+		Status:     "success",
+	}
+
+	// Set the response header to indicate JSON content
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK) // Set the HTTP status code
+
+	// Encode the response to JSON and send it
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+	}
+}
