@@ -21,27 +21,39 @@ var tokenExpiryTime time.Time
 func GetAccessToken() (string, error) {
 	currentTime := time.Now()
 
+	// Return cached token if still valid
 	if cachedToken != "" && tokenExpiryTime.After(currentTime) {
 		return cachedToken, nil
 	}
 
-	creds, err := google.CredentialsFromJSON(context.Background(), []byte(os.Getenv("DIALOG_FLOW_CREDENTIALS_JSON")), "https://www.googleapis.com/auth/cloud-platform")
+	// Path to the JSON file
+	filePath := "./docto-sheduler-1ebb4fc933f8.json" // Adjust this path based on your root directory setup
+
+	// Read the file contents
+	jsonData, err := os.ReadFile(filePath)
+	if err != nil {
+		return "", fmt.Errorf("failed to read credentials file: %v", err)
+	}
+
+	// Parse credentials and get the token
+	creds, err := google.CredentialsFromJSON(context.Background(), jsonData, "https://www.googleapis.com/auth/cloud-platform")
 	if err != nil {
 		return "", fmt.Errorf("failed to parse credentials: %v", err)
 	}
 
-	// Get the token
 	token, err := creds.TokenSource.Token()
 	if err != nil {
 		return "", fmt.Errorf("failed to get token: %v", err)
 	}
-	log.Println("token : ", token)
 
+	// Cache the token and its expiry time
+	log.Printf("New token retrieved: %s", token.AccessToken)
 	cachedToken = token.AccessToken
-	tokenExpiryTime = time.Now().Add(time.Hour)
+	tokenExpiryTime = token.Expiry
 
 	return cachedToken, nil
 }
+
 func HelpDeskRender(w http.ResponseWriter, r *http.Request) {
 	paymentPagePath := filepath.Join("templates", "help_desk.html")
 	http.ServeFile(w, r, paymentPagePath)
